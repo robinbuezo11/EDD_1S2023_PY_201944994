@@ -1,7 +1,7 @@
 package Utils
 
 type NodeUser struct {
-	user User
-	next *NodeUser
-	prev *NodeUser
+	User *User
+	Next *NodeUser
+	Prev *NodeUser
 }
