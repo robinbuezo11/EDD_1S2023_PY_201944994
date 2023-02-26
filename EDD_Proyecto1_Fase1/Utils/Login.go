@@ -2,6 +2,9 @@ package Utils
 
 import (
 	"fmt"
+	"log"
+	"strconv"
+	"strings"
 )
 
 func Login() {
@@ -17,17 +20,17 @@ func Login() {
 		fmt.Println("*            1. Iniciar Sesion              *")
 		fmt.Println("*           2. Salir del Sistema            *")
 		fmt.Println("**************** EDD GoDrive ****************")
-		fmt.Println("Elige una opcion: ")
+		fmt.Print("Elige una opcion: ")
 
 		fmt.Scan(&option)
 
 		if option == 1 {
 
 			user := ""
-			fmt.Println("\nIngresa tu usuario: ")
+			fmt.Print("\nIngresa tu usuario: ") //Numero de carnet
 			fmt.Scan(&user)
 			pass := ""
-			fmt.Println("\nIngresa tu password: ")
+			fmt.Print("Ingresa tu password: ")
 			fmt.Scan(&pass)
 
 			if user == admin.Firstname && pass == admin.Pass { // Si es admin
@@ -39,7 +42,7 @@ func Login() {
 					fmt.Println("*      4. Carga Masiva de Estudiantes       *")
 					fmt.Println("*      5. Cerrar Sesion                     *")
 					fmt.Println("*********************************************")
-					fmt.Println("Elige una opcion: ")
+					fmt.Print("Elige una opcion: ")
 
 					fmt.Scan(&option)
 
@@ -51,7 +54,7 @@ func Login() {
 							fmt.Println("*      1. Aceptar al Estudiante             *")
 							fmt.Println("*      2. Rechazar al Estudiante            *")
 							fmt.Println("*      3. Volver al Menu                    *")
-							fmt.Println("Elige una opcion: ")
+							fmt.Print("Elige una opcion: ")
 
 							fmt.Scan(&option)
 
@@ -75,18 +78,42 @@ func Login() {
 						fmt.Println("\n*** Registro de Estudiantes - EDD GoDrive ***")
 						var name, lastname, pass string
 						var carnet int
-						fmt.Println("Ingresa el Nombre:")
+						fmt.Print("Ingresa el Nombre: ")
 						fmt.Scan(&name)
-						fmt.Println("Ingresa el Apellido:")
+						fmt.Print("Ingresa el Apellido: ")
 						fmt.Scan(&lastname)
-						fmt.Println("Ingresa el Carnet:")
+						fmt.Print("Ingresa el Carnet: ")
 						fmt.Scan(&carnet)
-						fmt.Println("Ingresa el Password:")
+						fmt.Print("Ingresa el Password: ")
 						fmt.Scan(&pass)
 
-						queue.Enqueue(&User{Firstname: name, Lastname: lastname, Carnet: int(carnet), Pass: pass}) //Agregar a la cola de estudiantes pendientes de aceptar
+						queue.Enqueue(&User{Firstname: name, Lastname: lastname, Carnet: carnet, Pass: pass}) //Agregar a la cola de estudiantes pendientes de aceptar
 					case 4: // Carga Masiva de Estudiantes
-						//
+						var path string
+						fmt.Println("\n********** Listado de Estudiantes ***********")
+						fmt.Println("\n*********** Carga de Estudiantes ************")
+						fmt.Print("Ingresa la ruta del archivo CSV: ")
+						fmt.Scan(&path)
+						data := ReadCVSFile(path)
+
+						for index, row := range data {
+							if index > 0 {
+								names := strings.Split(row[1], " ")
+								carnet, err := strconv.Atoi(row[0])
+								if err != nil {
+									log.Fatal("Error al leer el carnet "+path, err)
+								}
+								if len(names) > 1 {
+									//fmt.Printf("Carnet: %d\tNombre: %s\tApellido: %s, Pass: %s\n", carnet, names[0], names[1], row[2])
+									queue.Enqueue(&User{Firstname: names[0], Lastname: names[1], Carnet: carnet, Pass: row[2]}) //Agregar a la cola de estudiantes pendientes de aceptar
+								} else {
+									//fmt.Printf("Carnet: %d\tNombre: %s, Pass: %s\n", carnet, names[0], row[2])
+									queue.Enqueue(&User{Firstname: names[0], Carnet: carnet, Pass: row[2]}) //Agregar a la cola de estudiantes pendientes de aceptar
+								}
+
+							}
+						}
+						fmt.Println("\n¡Archivo cargado exitosamente!")
 					}
 				}
 			}

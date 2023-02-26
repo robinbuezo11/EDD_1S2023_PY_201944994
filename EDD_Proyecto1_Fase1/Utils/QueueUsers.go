@@ -14,6 +14,7 @@ func (queue *QueueUsers) Enqueue(user *User) {
 	if queue.first == nil {
 		queue.first = node
 		queue.Size = 1
+		fmt.Println("\n¡Usuario agregado a la cola!")
 	} else {
 		nodeaux := queue.first
 
@@ -23,6 +24,7 @@ func (queue *QueueUsers) Enqueue(user *User) {
 
 		nodeaux.Next = node
 		queue.Size += 1
+		fmt.Println("\n¡Usuario agregado a la cola!")
 	}
 
 }
@@ -49,7 +51,7 @@ func (queue *QueueUsers) Print() {
 }
 
 func (queue *QueueUsers) PrintToDecide() {
-	fmt.Printf("\n*************** Pendientes: %d ***************\n", queue.Size)
+	fmt.Printf("*************** Pendientes: %d ***************\n", queue.Size)
 	nodeaux := queue.first
 	if nodeaux != nil {
 		fmt.Printf("* Estudiante Actual: %s %s\n", nodeaux.User.Firstname, nodeaux.User.Lastname)
