@@ -43,17 +43,16 @@ func WriteDotFile(code string, fileName string, path string) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Println("Archivo .dot creado.")
+	fmt.Println("\nArchivo .dot creado")
 
 }
 
 // Método para ejecutar comando en consola
 func GeneratePNG(fileName string, path string) {
 	path2, _ := exec.LookPath("dot")
-	cmd, err := exec.Command(path2, "dot", "-Tpng", fileName).Output()
-	if err != nil {
-		fmt.Print(err)
-	}
+	cmd, _ := exec.Command(path2, "dot", "-Tpng", fileName).Output()
+
 	mode := int(0777)
 	os.WriteFile(strings.Replace(fileName, ".dot", ".png", -1), cmd, os.FileMode(mode))
+	fmt.Println("Reporte Generado")
 }

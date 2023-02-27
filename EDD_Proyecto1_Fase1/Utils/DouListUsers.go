@@ -78,6 +78,7 @@ func (list *DouListUsers) GetNodeStudent(carnet int) *NodeUser {
 			if carnet == nodeaux.User.Carnet {
 				return nodeaux
 			}
+			nodeaux = nodeaux.Next
 		}
 		return nil
 	}
@@ -87,15 +88,20 @@ func (list *DouListUsers) GraphCode() string {
 	nodeaux := list.first
 	nodes := ""
 	conn := ""
+	connB := ""
 	index := 0
 	for nodeaux.Next != nil {
 		nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
+		nodes += "B" + strconv.Itoa(index) + nodeaux.Binnacle.GraphCode()
 		conn += "N" + strconv.Itoa(index) + "->"
+		connB += "\nN" + strconv.Itoa(index) + "-> B" + strconv.Itoa(index)
 		nodeaux = nodeaux.Next
 		index++
 	}
-	nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n	" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
+	nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
+	nodes += "B" + strconv.Itoa(index) + nodeaux.Binnacle.GraphCode()
 	conn += "N" + strconv.Itoa(index) + "\n"
+	connB += "\nN" + strconv.Itoa(index) + "-> B" + strconv.Itoa(index)
 	nodeaux = list.last
 	for nodeaux.Prev != nil {
 		conn += "N" + strconv.Itoa(index) + "->"
@@ -109,5 +115,6 @@ func (list *DouListUsers) GraphCode() string {
 		"rankdir=LR;\n" +
 		nodes +
 		conn +
+		connB +
 		"\n}"
 }

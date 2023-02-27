@@ -2,10 +2,23 @@ digraph G {
 node[shape=rectangle style=filled pencolor="#00000" color="#3ADEFF" fontname="Helvetica,Arial"];
 rankdir=LR;
 N0[label="20178004\nLeonardo Martinez"];
+B0[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>26/02/2023 22:20:20</td></tr>
+<tr><td>Se inició sesión<br/>26/02/2023 22:20:06</td></tr></table>>]
 N1[label="201103656\nRoberto Solorzano"];
+B1[label=<<table cellspacing="0"><tr><td>No hay registros</td></tr></table>>]
 N2[label="201503336\nEstuardo Ruiz"];
+B2[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>26/02/2023 22:21:46</td></tr>
+<tr><td>Se inició sesión<br/>26/02/2023 22:21:39</td></tr>
+<tr><td>Se inició sesión<br/>26/02/2023 22:21:24</td></tr></table>>]
 N3[label="201709018\nCristian Suy"];
-N4[label="202002535\n	Ricardo Hernandez"];
+B3[label=<<table cellspacing="0"><tr><td>No hay registros</td></tr></table>>]
+N4[label="202002535\nRicardo Hernandez"];
+B4[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>26/02/2023 22:20:54</td></tr></table>>]
 N0->N1->N2->N3->N4
 N4->N3->N2->N1->N0
+N0-> B0
+N1-> B1
+N2-> B2
+N3-> B3
+N4-> B4
 }

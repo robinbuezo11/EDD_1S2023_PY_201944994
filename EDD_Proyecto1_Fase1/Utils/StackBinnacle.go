@@ -37,3 +37,19 @@ func (stack *StackBinnacle) Print() {
 		}
 	}
 }
+
+func (stack *StackBinnacle) GraphCode() string {
+	nodes := "[label=<<table cellspacing=\"0\">"
+	if stack.first != nil {
+		nodeaux := stack.first
+		for nodeaux.Next != nil {
+			nodes += "<tr><td>" + nodeaux.action + "<br/>" + nodeaux.time + "</td></tr>\n"
+			nodeaux = nodeaux.Next
+		}
+		nodes += "<tr><td>" + nodeaux.action + "<br/>" + nodeaux.time + "</td></tr></table>>]\n"
+	} else {
+		nodes += "<tr><td>No hay registros</td></tr></table>>]\n"
+	}
+
+	return nodes
+}

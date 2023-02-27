@@ -127,7 +127,7 @@ func Login() {
 							fmt.Println("*      1. Generar Reporte de Estudiantes    *")
 							fmt.Println("*      2. Generar Reporte de Cola de Espera *")
 							fmt.Println("*      3. Generar Bitácora de Administrador *")
-							fmt.Println("*      3. Generar Archivo JSON              *")
+							fmt.Println("*      4. Generar Archivo JSON              *")
 							fmt.Println("*      5. Volver al Menu                    *")
 							fmt.Print("Elige una opcion: ")
 
@@ -135,8 +135,8 @@ func Login() {
 
 							switch option {
 							case 1: // Generar Reporte de Lista Enlazada Doble
-								WriteDotFile(douList.GraphCode(), "Estudiantes(Doble Enlazada).dot", "./")
-								GeneratePNG("Estudiantes(Doble Enlazada).dot", "./")
+								WriteDotFile(douList.GraphCode(), "Estudiantes(Doble Enlazada).dot", "./Reportes")
+								GeneratePNG("Estudiantes(Doble Enlazada).dot", "./Reportes")
 							case 2: // Generar Reporte de Cola
 
 							case 3: // Generar Reporte de Pila del Administrador
