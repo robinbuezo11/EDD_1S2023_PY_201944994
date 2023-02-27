@@ -1,0 +1,34 @@
+{
+    "alumnos": [
+        {
+            "nombre": "Leonardo Martinez",
+            "carnet": 20178004,
+            "password": "leo1234",
+            "Carpeta_Raiz": "/"
+        },
+        {
+            "nombre": "Roberto Solorzano",
+            "carnet": 201103656,
+            "password": "salu2",
+            "Carpeta_Raiz": "/"
+        },
+        {
+            "nombre": "Estuardo Ruiz",
+            "carnet": 201503336,
+            "password": "est1998",
+            "Carpeta_Raiz": "/"
+        },
+        {
+            "nombre": "Cristian Suy",
+            "carnet": 201709018,
+            "password": "cris1234",
+            "Carpeta_Raiz": "/"
+        },
+        {
+            "nombre": "Ricardo Hernandez",
+            "carnet": 202002535,
+            "password": "holamundo",
+            "Carpeta_Raiz": "/"
+        }
+    ]
+}

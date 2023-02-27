@@ -1,0 +1,16 @@
+digraph G {
+node[shape=rectangle style=filled pencolor="#00000" color="#3ADEFF" fontname="Helvetica,Arial"];
+rankdir=LR;
+Head [shape=circle];
+Tail [shape=circle];
+N0[label="20178004\nLeonardo Martinez"];
+N1[label="201709018\nCristian Suy"];
+N2[label="201403877\nEbany Larios"];
+N3[label="202002535\nRicardo Hernandez"];
+N4[label="201103656\nRoberto Solorzano"];
+N5[label="201252363\nAlberto Ortiz"];
+N6[label="201503336\nEstuardo Ruiz"];
+edge [dir=back]
+Head->N0->N1->N2->N3->N4->N5->N6->Tail
+
+}

@@ -135,13 +135,16 @@ func Login() {
 
 							switch option {
 							case 1: // Generar Reporte de Lista Enlazada Doble
-								WriteDotFile(douList.GraphCode(), "Estudiantes(Doble Enlazada).dot", "./Reportes")
-								GeneratePNG("Estudiantes(Doble Enlazada).dot", "./Reportes")
+								WriteDotFile(douList.GraphCode(), "Estudiantes(Doble Enlazada).dot", "./")
+								GeneratePNG("Estudiantes(Doble Enlazada).dot", "./")
 							case 2: // Generar Reporte de Cola
-
+								WriteDotFile(queue.GraphCode(), "Cola de Estudiantes.dot", "./")
+								GeneratePNG("Cola de Estudiantes.dot", "./")
 							case 3: // Generar Reporte de Pila del Administrador
-
+								WriteDotFile(adminBinnacle.GraphAdminCode(), "Bitacora de Admin(Stack).dot", "./")
+								GeneratePNG("Bitacora de Admin(Stack).dot", "./")
 							case 4: // Generar Archivo JSON
+								WriteJSONFile(douList.ParseJSON(), "Estudiantes.json", "./")
 							}
 							fmt.Println()
 						}

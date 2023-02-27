@@ -1,0 +1,16 @@
+digraph G {
+node[shape=rectangle style=filled pencolor="#00000" color="#3ADEFF" fontname="Helvetica,Arial"];
+edge [dir=both]
+rankdir=TB;
+Top [shape=Mdiamond]
+N[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>26/02/2023 23:28:58</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>26/02/2023 23:28:50</td></tr>
+<tr><td>Se rechazó a Estudiante<br/>26/02/2023 23:28:49</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>26/02/2023 23:28:48</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>26/02/2023 23:28:47</td></tr>
+<tr><td>Se rechazó a Estudiante<br/>26/02/2023 23:28:47</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>26/02/2023 23:28:47</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>26/02/2023 23:28:45</td></tr>
+<tr><td>Se inició sesión<br/>26/02/2023 23:28:21</td></tr></table>>]
+Top -> N
+}

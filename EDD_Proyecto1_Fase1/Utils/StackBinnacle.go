@@ -53,3 +53,25 @@ func (stack *StackBinnacle) GraphCode() string {
 
 	return nodes
 }
+
+func (stack *StackBinnacle) GraphAdminCode() string {
+	nodes := "Top [shape=Mdiamond]\nN[label=<<table cellspacing=\"0\">"
+	conn := "Top -> N"
+	if stack.first != nil {
+		nodeaux := stack.first
+		for nodeaux.Next != nil {
+			nodes += "<tr><td>" + nodeaux.action + "<br/>" + nodeaux.time + "</td></tr>\n"
+			nodeaux = nodeaux.Next
+		}
+		nodes += "<tr><td>" + nodeaux.action + "<br/>" + nodeaux.time + "</td></tr></table>>]\n"
+	} else {
+		nodes += "<tr><td>No hay registros</td></tr></table>>]\n"
+	}
+
+	return "digraph G {\n" +
+		"node[shape=rectangle style=filled pencolor=\"#00000\" color=\"#3ADEFF\" fontname=\"Helvetica,Arial\"];\n" +
+		"edge [dir=both]\nrankdir=TB;\n" +
+		nodes +
+		conn +
+		"\n}"
+}
