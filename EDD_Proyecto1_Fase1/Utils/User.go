@@ -10,6 +10,6 @@ type User struct {
 }
 
 func (user *User) print() {
-	fmt.Println("*********************************************")
+	fmt.Println("---------------------------------------------")
 	fmt.Printf("Nombre: %s %s, Carnet: %d\n", user.Firstname, user.Lastname, user.Carnet)
 }
