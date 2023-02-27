@@ -69,19 +69,18 @@ func (queue *QueueUsers) GraphCode() string {
 	nodes := "Head [shape=circle];\nTail [shape=circle];\n"
 	conn := "edge [dir=back]\nHead->"
 	index := 0
-	for nodeaux.Next != nil {
+	for nodeaux != nil {
 		nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
 		conn += "N" + strconv.Itoa(index) + "->"
 		nodeaux = nodeaux.Next
 		index++
 	}
-	nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
-	conn += "N" + strconv.Itoa(index) + "->Tail\n"
 
 	return "digraph G {\n" +
 		"node[shape=rectangle style=filled pencolor=\"#00000\" color=\"#3ADEFF\" fontname=\"Helvetica,Arial\"];\n" +
 		"rankdir=LR;\n" +
 		nodes +
 		conn +
+		"Tail\n" +
 		"\n}"
 }

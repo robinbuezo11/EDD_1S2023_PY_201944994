@@ -91,25 +91,27 @@ func (list *DouListUsers) GraphCode() string {
 	conn := ""
 	connB := ""
 	index := 0
-	for nodeaux.Next != nil {
+	if list.first != nil {
+		for nodeaux.Next != nil {
+			nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
+			nodesB += "B" + strconv.Itoa(index) + nodeaux.Binnacle.GraphCode()
+			conn += "N" + strconv.Itoa(index) + "->"
+			connB += "\nN" + strconv.Itoa(index) + "-> B" + strconv.Itoa(index)
+			nodeaux = nodeaux.Next
+			index++
+		}
 		nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
 		nodesB += "B" + strconv.Itoa(index) + nodeaux.Binnacle.GraphCode()
-		conn += "N" + strconv.Itoa(index) + "->"
+		conn += "N" + strconv.Itoa(index) + "\n"
 		connB += "\nN" + strconv.Itoa(index) + "-> B" + strconv.Itoa(index)
-		nodeaux = nodeaux.Next
-		index++
+		nodeaux = list.last
+		for nodeaux.Prev != nil {
+			conn += "N" + strconv.Itoa(index) + "->"
+			nodeaux = nodeaux.Prev
+			index--
+		}
+		conn += "N" + strconv.Itoa(index)
 	}
-	nodes += "N" + strconv.Itoa(index) + "[label=\"" + strconv.Itoa(nodeaux.User.Carnet) + "\\n" + nodeaux.User.Firstname + " " + nodeaux.User.Lastname + "\"];\n"
-	nodesB += "B" + strconv.Itoa(index) + nodeaux.Binnacle.GraphCode()
-	conn += "N" + strconv.Itoa(index) + "\n"
-	connB += "\nN" + strconv.Itoa(index) + "-> B" + strconv.Itoa(index)
-	nodeaux = list.last
-	for nodeaux.Prev != nil {
-		conn += "N" + strconv.Itoa(index) + "->"
-		nodeaux = nodeaux.Prev
-		index--
-	}
-	conn += "N" + strconv.Itoa(index)
 
 	return "digraph G {\n" +
 		"node[shape=rectangle style=filled pencolor=\"#00000\" color=\"#3ADEFF\" fontname=\"Helvetica,Arial\"];\n" +
