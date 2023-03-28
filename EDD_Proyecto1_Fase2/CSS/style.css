@@ -1,0 +1,60 @@
+#eddtitle {
+    margin-top: 30%;
+
+  	font: 5000 4em/1 "Oswald", sans-serif;
+  	letter-spacing: 0;
+  	/*padding: .25em 0 .325em;
+	  display: block;
+	  margin: 0 auto;
+  	*/text-shadow: 0 0 80px rgba(255,255,255,.5);
+
+    /* Clip Background Image */
+
+	  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+	  -webkit-background-clip: text;
+	  background-clip: text;
+
+    /* Animate Background Image */
+
+	  -webkit-text-fill-color: transparent;
+	  -webkit-animation: aitf 80s linear infinite;
+
+    /* Activate hardware acceleration for smoother animations */
+
+	  -webkit-transform: translate3d(0,0,0);
+	  -webkit-backface-visibility: hidden;
+
+}
+
+@-webkit-keyframes aitf {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
+}
+
+#logincol{
+    margin-top: 5%;
+}
+
+h2,label{
+    color: chocolate;
+}
+
+label{
+    font-size: large;
+}
+
+h2{
+    font-size: 300%;
+}
+
+.btn {
+    background-color: chocolate;
+    color: white;
+    font-size: 150%;
+}
+
+.form-control{
+    color: black;
+    font-size: 125%;
+    font-weight: bold;
+}

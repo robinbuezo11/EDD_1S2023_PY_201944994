@@ -1,34 +1,33 @@
+{"alumnos": [
 {
-    "alumnos": [
-        {
-            "nombre": "Leonardo Martinez",
-            "carnet": 20178004,
-            "password": "leo1234",
-            "Carpeta_Raiz": "/"
-        },
-        {
-            "nombre": "Roberto Solorzano",
-            "carnet": 201103656,
-            "password": "salu2",
-            "Carpeta_Raiz": "/"
-        },
-        {
-            "nombre": "Estuardo Ruiz",
-            "carnet": 201503336,
-            "password": "est1998",
-            "Carpeta_Raiz": "/"
-        },
-        {
-            "nombre": "Cristian Suy",
-            "carnet": 201709018,
-            "password": "cris1234",
-            "Carpeta_Raiz": "/"
-        },
-        {
-            "nombre": "Ricardo Hernandez",
-            "carnet": 202002535,
-            "password": "holamundo",
-            "Carpeta_Raiz": "/"
-        }
-    ]
+"nombre": "Ebany Larios",
+"carnet": 201403877,
+"password": "qwerty12",
+"Carpeta_Raiz": "/"
+},{
+"nombre": "Cristian Suy",
+"carnet": 201700918,
+"password": "Cris123",
+"Carpeta_Raiz": "/"
+},{
+"nombre": "Leonardo Martinez",
+"carnet": 201780044,
+"password": "leo123",
+"Carpeta_Raiz": "/"
+},{
+"nombre": "Robin Buezo",
+"carnet": 201944994,
+"password": "Robd",
+"Carpeta_Raiz": "/"
+},{
+"nombre": "Diana Berducido",
+"carnet": 202000277,
+"password": "Diana55",
+"Carpeta_Raiz": "/"
+},{
+"nombre": "Kevin Hernandez",
+"carnet": 202001053,
+"password": "Kevin4",
+"Carpeta_Raiz": "/"
+}]
 }

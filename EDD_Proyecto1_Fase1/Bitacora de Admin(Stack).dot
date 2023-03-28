@@ -3,14 +3,15 @@ node[shape=rectangle style=filled pencolor="#00000" color="#3ADEFF" fontname="He
 edge [dir=both]
 rankdir=TB;
 Top [shape=Mdiamond]
-N[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>27/02/2023 00:23:40</td></tr>
-<tr><td>Se aceptó a Estudiante<br/>27/02/2023 00:20:00</td></tr>
-<tr><td>Se rechazó a Estudiante<br/>27/02/2023 00:20:00</td></tr>
-<tr><td>Se aceptó a Estudiante<br/>27/02/2023 00:20:00</td></tr>
-<tr><td>Se aceptó a Estudiante<br/>27/02/2023 00:19:59</td></tr>
-<tr><td>Se rechazó a Estudiante<br/>27/02/2023 00:19:59</td></tr>
-<tr><td>Se aceptó a Estudiante<br/>27/02/2023 00:19:59</td></tr>
-<tr><td>Se aceptó a Estudiante<br/>27/02/2023 00:19:58</td></tr>
-<tr><td>Se inició sesión<br/>27/02/2023 00:18:35</td></tr></table>>]
+N[label=<<table cellspacing="0"><tr><td>Se inició sesión<br/>28/02/2023 13:43:09</td></tr>
+<tr><td>Se rechazó a Estudiante<br/>28/02/2023 13:41:56</td></tr>
+<tr><td>Se rechazó a Estudiante<br/>28/02/2023 13:41:52</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:41:50</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:41:49</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:41:48</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:41:48</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:41:47</td></tr>
+<tr><td>Se aceptó a Estudiante<br/>28/02/2023 13:40:50</td></tr>
+<tr><td>Se inició sesión<br/>28/02/2023 13:40:18</td></tr></table>>]
 Top -> N
 }
