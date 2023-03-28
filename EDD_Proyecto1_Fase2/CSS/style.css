@@ -35,8 +35,8 @@
     margin-top: 5%;
 }
 
-h2,label{
-    color: chocolate;
+label{
+    color: rgb(255, 125, 0);
 }
 
 label{
@@ -45,6 +45,7 @@ label{
 
 h2{
     font-size: 300%;
+	color: rgb(255, 115, 0);
 }
 
 .btn {
