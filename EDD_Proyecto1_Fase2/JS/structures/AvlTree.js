@@ -72,13 +72,15 @@ class AvlTree{
     }
 
     #doubleLeft(node){
-        node.left = this.#rotateLeft(node.left);
-        return this.#rotateRight(node);
+        node.right = this.#rotateRight(node.right);
+        node = this.#rotateLeft(node);
+        return node;
     }
 
     #doubleRight(node){
-        node.right = this.#rotateRight(node.right);
-        return this.#rotateLeft(node);
+        node.left = this.#rotateLeft(node.left);
+        node = this.#rotateRight(node);
+        return node;
     }
 
     //-----------------------------------------------------------
@@ -103,7 +105,7 @@ class AvlTree{
             </tr>
         `;
         if(current.right != null){
-            row += this.#inOrderRecursive(current.left);
+            row += this.#inOrderRecursive(current.right);
         }
         return row;
     }
@@ -124,7 +126,7 @@ class AvlTree{
             row += this.#preOrderRecursive(current.left);
         }
         if(current.right != null){
-            row += this.#preOrderRecursive(current.left);
+            row += this.#preOrderRecursive(current.right);
         }
         return row;
     }
@@ -138,7 +140,7 @@ class AvlTree{
             row += this.#postOrderRecursive(current.left);
         }
         if(current.right != null){
-            row += this.#postOrderRecursive(current.left);
+            row += this.#postOrderRecursive(current.right);
         }
         row +=`
             <tr>

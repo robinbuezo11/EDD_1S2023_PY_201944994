@@ -23,7 +23,7 @@ function loadUsersForm(e){
             localStorage.setItem('users', JSON.stringify(users));
 
             //INSERTAR A LOS USUARIOS EN LA TABLA
-            $('#usersTable tbody').html(
+            /* $('#usersTable tbody').html(
                 usersArray.map((user, index) => {
                     return(`
                         <tr>
@@ -33,7 +33,11 @@ function loadUsersForm(e){
                         </tr>
                     `);
                 }).join('') 
+            ); */
+            $('#usersTable tbody').html(
+                users.inOrder()
             );
+            $('#routes').val('inOrder');
 
             alert("¡Usuarios cargados correctamente!");
         }
@@ -84,6 +88,10 @@ function showUsersForm(e){
                 break;
             }
     }
+}
+
+function showGraph(){
+    
 }
 
 $(document).ready(showLocalUsers);

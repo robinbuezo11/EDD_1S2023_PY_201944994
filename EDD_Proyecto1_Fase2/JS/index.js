@@ -14,6 +14,7 @@ function login(e){
 
     if(user == 'admin' && pass == 'admin'){
         window.location.href = "DashboardAdmin.html";
+        localStorage.clear();
     }else{
         $('#pass').val('');
         alert("Usuario o contraseña incorrectos");
