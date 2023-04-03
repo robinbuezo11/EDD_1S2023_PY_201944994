@@ -43,8 +43,12 @@ label{
     font-size: large;
 }
 
-h2{
+h2,h1{
     font-size: 300%;
+	color: rgb(255, 115, 0);
+}
+
+h5{
 	color: rgb(255, 115, 0);
 }
 
