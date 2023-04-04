@@ -22,7 +22,7 @@
                         <input type="file" accept=".json" id="inputFile" name="inputFile" class="form-control">
                         <div class="form-group mt-4">
                             <button type="submit" class="btn w-100 btn-light">Cargar Alumnos</button>
-                            <a class="btn w-100 mt-3 btn-light">Gráfica del Arbol</a>
+                            <a class="btn w-100 mt-3 btn-light" href="./UserGraph.html">Gráfica del Arbol</a>
                         </div>
                     </form>
                 </div>
@@ -60,12 +60,6 @@
                     </div>
                 </div>
             </div>
-<!--             <div class="container mt-5">
-                <h1>Reporte de Árbol AVL</h1>
-                <hr>
-                <img id="graph">
-            </div>
- -->
         </div>
 
         <!-- JQuery & Bootstrap -->
@@ -73,6 +67,7 @@
         <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"</script>
 
         <!-- Utils -->
+        <script src="./JS/libs/cycle.js"></script>
         <script src="./JS/structures/User.js"></script>
         <script src="./JS/structures/AvlNode.js"></script>
         <script src="./JS/structures/AvlTree.js"></script>

@@ -1,5 +1,10 @@
 //let AvlNode = require('./AvlNode');
 
+//-----------------------------------------------------------
+//---------------------GLOBAL VARIABLES----------------------
+let nodes = '';
+let connections = '';
+
 class AvlTree{
     constructor(){
         this.root = null;
@@ -100,7 +105,7 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.firstname} ${current.user.lastname}</td>
+                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
@@ -118,7 +123,7 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.firstname} ${current.user.lastname}</td>
+                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
@@ -145,13 +150,32 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.firstname} ${current.user.lastname}</td>
+                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
         return row;
     }
 
+    //-----------------------------------------------------------
+    //----------------------------GRAPH--------------------------
+    treeGraph(){       
+        nodes = "";
+        connections = "";
+        this.#treeGraphRecursive(this.root);
+        return nodes + connections;
+    }
+    #treeGraphRecursive(current){
+        if(current.left != null){
+            this.#treeGraphRecursive(current.left);
+            connections += `S_${current.user.carnet} -> S_${current.left.user.carnet};\n`;
+        }
+        nodes += `S_${current.user.carnet}[label="${current.user.carnet}\\n${current.user.firstname} ${current.user.lastname}\\nAltura: ${this.getHeight(current)}"];`
+        if(current.right != null){
+            this.#treeGraphRecursive(current.right);
+            connections += `S_${current.user.carnet} -> S_${current.right.user.carnet};\n`;
+        }
+    }
 
     /* inOrder(){
         return this.#inOrderRecursive(this.root);
@@ -163,7 +187,7 @@ class AvlTree{
         }
         row +=`
         ${current.user.carnet}
-        ${current.user.firstname} ${current.user.lastname}
+        ${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}
         ${current.user.pass}     
         `;
         if(current.right != null){

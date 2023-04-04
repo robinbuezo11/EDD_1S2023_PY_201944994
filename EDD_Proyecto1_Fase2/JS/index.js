@@ -12,7 +12,7 @@ function login(e){
     let user = $('#user').val();
     let pass = $('#pass').val();
 
-    if(user == 'admin' && pass == 'admin'){
+    if(user == 'Admin' && pass == 'Admin'){
         window.location.href = "DashboardAdmin.html";
         localStorage.clear();
     }else{

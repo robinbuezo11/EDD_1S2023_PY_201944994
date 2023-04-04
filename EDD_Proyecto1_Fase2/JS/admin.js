@@ -90,8 +90,4 @@ function showUsersForm(e){
     }
 }
 
-function showGraph(){
-    
-}
-
 $(document).ready(showLocalUsers);
