@@ -90,4 +90,9 @@ function showUsersForm(e){
     }
 }
 
+function openGraph(){
+    let windows = window.open("UserGraph.html", "_blank");
+    windows.focus();
+}
+
 $(document).ready(showLocalUsers);

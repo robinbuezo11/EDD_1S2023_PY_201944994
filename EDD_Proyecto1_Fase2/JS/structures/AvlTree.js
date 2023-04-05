@@ -105,7 +105,7 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
+                <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
@@ -123,7 +123,7 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
+                <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
@@ -150,7 +150,7 @@ class AvlTree{
         row +=`
             <tr>
                 <th>${current.user.carnet}</th>
-                <td>${current.user.carnet}\n${current.user.firstname} ${current.user.lastname}\n<b>Altura: </b>${this.getHeight(current)}</td>
+                <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
             </tr>
         `;
@@ -176,6 +176,7 @@ class AvlTree{
             connections += `S_${current.user.carnet} -> S_${current.right.user.carnet};\n`;
         }
     }
+
 
     /* inOrder(){
         return this.#inOrderRecursive(this.root);

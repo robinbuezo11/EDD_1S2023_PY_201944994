@@ -10,24 +10,30 @@
     </head>
     <body class="bg-dark">
         <div class="container">
-            <div class="mt-5 mb-5">
-                <h1 class="fw-bold pt-5 mb-5">Dashboard Administrador</h1>
-                <hr>
+            <div class="row">
+                <div class="mt-5 col-8">
+                    <h1 class="fw-bold pt-5">Dashboard Administrador</h1>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3 mt-5">
+                    <a id="closeSesion" class="btn mt-5 w-100 btn-danger" href="index.html">Cerrar Sesión</a>    
+                </div>
             </div>
+            <hr class="mb-5">
             <div class="row">
                 <div class="col-4">
-                    <h5>Subir estudiantes</h5>
+                    <h5>Acciones</h5>
                     <hr>
                     <form class="form" onsubmit="loadUsersForm(event)">
                         <input type="file" accept=".json" id="inputFile" name="inputFile" class="form-control">
                         <div class="form-group mt-4">
                             <button type="submit" class="btn w-100 btn-light">Cargar Alumnos</button>
-                            <a class="btn w-100 mt-3 btn-light" href="./UserGraph.html">Gráfica del Arbol</a>
+                            <a class="btn w-100 mt-3 btn-light" onclick="openGraph()">Árbol de Estudiantes</a>
                         </div>
                     </form>
                 </div>
                 <div class="col-8">
-                    <h5>Estudiantes cargados </h5>
+                    <h5>Estudiantes</h5>
                     <hr>
                     <form class="form" onsubmit="showUsersForm(event)">
                         <div class="row">

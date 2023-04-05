@@ -1,0 +1,57 @@
+{
+    "alumnos": [
+        {
+            "carnet": 6,
+            "nombre": "Diana Berducido",
+            "password": "Diana55",
+            "carpeta_raiz": "/"
+        },
+        {
+            "carnet": 44,
+            "nombre": "Leonardo Martinez",
+            "password": "leo123",
+            "carpeta_raiz": "/"
+        },
+        {
+          "carnet": 918,
+          "nombre": "Cristian Suy",
+          "password": "Cris123",
+          "carpeta_raiz": "/"
+        },
+        {
+            "carnet": 1053,
+            "nombre": "Kevin Hernandez",
+            "password": "Kevin4",
+            "carpeta_raiz": "/"
+        },
+        {
+            "carnet": 1801,
+            "nombre": "Kevin Castaneda",
+            "password": "Kevin3",
+            "carpeta_raiz": "/"
+        },
+        {
+          "carnet": 3877,
+          "nombre": "Ebany Larios",
+          "password": "qwerty12",
+          "carpeta_raiz": "/"
+        },
+        {
+          "carnet": 3933,
+          "nombre": "Manolo Ramirez",
+          "password": "Manolo93",
+          "carpeta_raiz": "/"
+        },
+        {
+          "carnet": 6484,
+          "nombre": "Wendi Vicente",
+          "password": "Wendi52",
+          "carpeta_raiz": "/"
+        }
+      ]
+  }
+
+  
+
+
+  

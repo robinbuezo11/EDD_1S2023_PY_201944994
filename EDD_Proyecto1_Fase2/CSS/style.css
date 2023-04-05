@@ -63,3 +63,13 @@ h5{
     font-size: 125%;
     font-weight: bold;
 }
+
+#closeSesion{
+	background-color: rgb(191, 40, 40);
+    color: white;
+    font-size: 150%;
+}
+
+hr{
+	border: 2px solid rgb(255, 120, 0);
+}
