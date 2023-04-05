@@ -64,7 +64,7 @@ h5{
     font-weight: bold;
 }
 
-#closeSesion{
+#danger{
 	background-color: rgb(191, 40, 40);
     color: white;
     font-size: 150%;
@@ -72,4 +72,11 @@ h5{
 
 hr{
 	border: 2px solid rgb(255, 120, 0);
+}
+
+.folder:hover{
+	background-color: cornsilk;
+	color: rgb(33,37,41);
+	transform: .3s;
+	cursor: pointer;
 }

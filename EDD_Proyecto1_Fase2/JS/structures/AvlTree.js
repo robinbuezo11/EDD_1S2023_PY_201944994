@@ -177,6 +177,30 @@ class AvlTree{
         }
     }
 
+    //-----------------------------------------------------------
+    //----------------------SEARCH USER FOR LOGIN----------------
+    userLogin(carnet, pass){
+        let user = this.#userloginRecursive(this.root, carnet, pass);
+        return user;
+    }
+    #userloginRecursive(current, carnet, pass){
+        if(current.user.carnet == carnet && current.user.pass == pass){
+            return current.user;
+        }
+        if(current.left != null){
+            let user = this.#userloginRecursive(current.left, carnet, pass);
+            if(user != null){
+                return user;
+            }
+        }
+        if(current.right != null){
+            let user = this.#userloginRecursive(current.right, carnet, pass);
+            if(user != null){
+                return user;
+            }
+        }
+    }
+
 
     /* inOrder(){
         return this.#inOrderRecursive(this.root);

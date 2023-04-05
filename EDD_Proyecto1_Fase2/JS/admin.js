@@ -13,16 +13,16 @@ function loadUsersForm(e){
         reader.onload = () => {
             usersArray = JSON.parse(reader.result).alumnos;
 
-            //INSERTAR A LOS USUARIOS EN EL ARBOL
+            //INSERT USERS IN THE TREE
             for(let i=0; i<usersArray.length; i++){
                 let name = usersArray[i].nombre.trim().split(" ");
                 users.Insert(new User(name[0], name[1], usersArray[i].carnet, usersArray[i].password));
             }
 
-            //GUARDAR EL ARBOL EN EL LOCAL STORAGE
+            //SAVE TREE IN LOCAL STORAGE
             localStorage.setItem('users', JSON.stringify(users));
 
-            //INSERTAR A LOS USUARIOS EN LA TABLA
+            //INSERT USERS IN THE TABLE
             /* $('#usersTable tbody').html(
                 usersArray.map((user, index) => {
                     return(`
@@ -48,21 +48,18 @@ function loadUsersForm(e){
 }
 
 //-----------------------------------------------------------
-//--------------SHOW USERS IN LOCAL STORAGE------------------
-function showLocalUsers(){
+//--------------LOAD USERS IN LOCAL STORAGE------------------
+function loadLocalUsers(){
     if (localStorage.getItem('users') == null) {
         return;
     }
-    let aux = localStorage.getItem('users');
-    users.root = JSON.parse(aux).root;
-    $('#usersTable tbody').html(
-        users.inOrder()
-    );
+    users.root = JSON.parse(localStorage.getItem('users')).root;
 }
 
 //-----------------------------------------------------------
 //----------------------GENERATE ROUTES----------------------
 function showUsersForm(e){
+    loadLocalUsers();
     e.preventDefault();
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
@@ -90,9 +87,37 @@ function showUsersForm(e){
     }
 }
 
+//-----------------------------------------------------------
+//----------------------SHOW GRAPH---------------------------
 function openGraph(){
     let windows = window.open("UserGraph.html", "_blank");
     windows.focus();
+}
+
+//-----------------------------------------------------------
+//----------------------CLEAR USERS--------------------------
+function clearUsers(){
+    if(confirm("¿Está seguro de eliminar todos los usuarios?")){
+        if (localStorage.getItem('users') != null) {
+            localStorage.removeItem('users');
+        }
+        if(users.root != null){
+            users = new AvlTree();
+        }
+        $('#usersTable tbody').html('');
+    }
+}
+
+//-----------------------------------------------------------
+//-----------------SHOW LOCAL USERS IN THE TABLE-------------
+function showLocalUsers(){
+    loadLocalUsers();
+    if(users.root != null){
+        $('#usersTable tbody').html(
+            users.inOrder()
+        );
+        $('#routes').val('inOrder');
+    }
 }
 
 $(document).ready(showLocalUsers);

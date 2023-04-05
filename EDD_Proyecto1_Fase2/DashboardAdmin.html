@@ -11,12 +11,12 @@
     <body class="bg-dark">
         <div class="container">
             <div class="row">
-                <div class="mt-5 col-8">
+                <div class="col-8">
                     <h1 class="fw-bold pt-5">Dashboard Administrador</h1>
                 </div>
-                <div class="col-1"></div>
-                <div class="col-3 mt-5">
-                    <a id="closeSesion" class="btn mt-5 w-100 btn-danger" href="index.html">Cerrar Sesión</a>    
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <a id="danger" class="btn mt-5 w-100 btn-danger" href="index.html">Cerrar Sesión</a>    
                 </div>
             </div>
             <hr class="mb-5">
@@ -45,8 +45,11 @@
                                     <option value="postOrder">PostOrder</option>
                                 </select>
                             </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn w-100 btn-light">Mostrar</button>    
+                            <div class="col-2">
+                                <button class="btn w-100 btn-light">Mostrar</button>    
+                            </div>
+                            <div class="col-2">
+                                <button id="danger" class="btn w-100 btn-light" onclick="clearUsers()">Limpiar</button>    
                             </div>
                         </div>
                     </form>

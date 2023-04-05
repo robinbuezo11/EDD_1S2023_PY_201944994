@@ -12,11 +12,30 @@ function login(e){
     let user = $('#user').val();
     let pass = $('#pass').val();
 
+    //---------------------VERIFY ADMIN----------------------
     if(user == 'Admin' && pass == 'Admin'){
         window.location.href = "DashboardAdmin.html";
-        localStorage.clear();
-    }else{
-        $('#pass').val('');
-        alert("Usuario o contraseña incorrectos");
+        //localStorage.clear();
+        return;
     }
+
+    //---------------------VERIFY USER----------------------
+    if(localStorage.getItem('users') != null){
+        let users = new AvlTree();
+        users.root = JSON.parse(localStorage.getItem('users')).root;
+        //-----------------SEARCH USER----------------------
+        userlogin = users.userLogin(user, pass);
+        if(userlogin){
+            //console.log(userlogin);
+            //---------------SAVE USER----------------------
+            localStorage.setItem('user', JSON.stringify(userlogin));
+            window.location.href = "DashboardUser.html";
+            return;
+        }
+    }
+    
+    //---------------ERROR MESSAGE--------------------------
+    $('#pass').val('');
+    alert("Usuario o contraseña incorrectos");
+    
 }

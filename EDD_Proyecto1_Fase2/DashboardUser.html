@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard Usuario</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./CSS/style.css" rel="stylesheet">
+        <link rel="shortcut icon" href="#">
+    </head>
+<body class="bg-dark">
+    <div class="container text-light py-5">
+        <div class="row">
+            <div class="mt-5 col-8">
+                <h1 id="welcomeusr" class="fw-bold pt-5"></h1>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-2 mt-5">
+                <button id="danger" class="btn mt-5 w-100 btn-danger" onclick="logoutUser()">Cerrar Sesión</button>    
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3 pt-5 pe-5">
+                <h5>Nueva Carpeta</h5>
+                <hr>
+                <form class="form" onsubmit="crearCarpeta(event)">
+                    <input type="text" id="folderName" name="folderName" class="form-control" placeholder="Nombre de Carpeta">
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-light w-100">Crear Carpeta</button>
+                    </div>
+                </form>
+                <h5 class="pt-5">Nuevo Archivo</h5>
+                <hr>
+                <form class="form" onsubmit="subirArchivo(event)">
+                    <!-- <input type="text" id="fileName" name="fileName" class="form-control mb-4" placeholder="Nombre de Archivos"/> -->
+                    <input type="file" id="file" name="file" class="form-control" accept="application/pdf, .txt, image/*">
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-light w-100">Subir Archivo</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-9 pt-5 ps-5">
+                <h5 class="text-center">Archivos de Carpeta</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-2 pt-2">
+                        <strong>Ruta Actual</strong>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="path" name="path"  class="form-control" disabled value="/" />
+                    </div>
+                    <div class="col-2" >
+                        <button type="button" onclick="retornarInicio()" class="btn btn-light w-100">Inicio</button>    
+                    </div>
+                    <div class="col-2">
+                        <button id="danger" class="btn w-100 btn-light" onclick="clearUsers()">Eliminar</button>    
+                    </div>
+                </div>
+                <img id="imagenSubida"/>
+                <div class="row mt-4 mb-5" id="carpetas">
+                    <!-- MOSTRAR LAS CARPETAS -->
+                    <!-- <div class="col-2 folder" onclick="">
+                        <img src="./imgs/folder.png" width="100%"/>
+                        <p class="h6"> Nombre de Carpeta</p>
+                    </div> -->
+                </div>
+                <div class="row mt-5">
+                    <hr>
+                    <div class="col-1"></div>
+                    <div class="col-4">
+                        <button type="button" onclick="showTreeGraph()" class="btn btn-light w-100">Reporte de Carpetas</button>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <button type="button" onclick="showMatrixGraph()" class="btn btn-light w-100">Reporte de Archivos</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        </div>
+        <a download=""></a>
+    </div>
+
+    <!-- JQuery & Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"</script>
+
+    <!-- Utils -->
+    <script src="./JS/libs/cycle.js"></script>
+    <script src="./JS/structures/User.js"></script>
+    <script src="./JS/dashUser.js"></script>
+
+</body>
+</html>
