@@ -4,6 +4,7 @@ class User{
         this.lastname = lastn;
         this.carnet = carnet
         this.pass = pass;
+        this.folders = new NAryTree();
     }
 }
 
