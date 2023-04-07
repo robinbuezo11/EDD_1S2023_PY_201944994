@@ -12,38 +12,66 @@ class NAryTree{
         if(parent){
             let newNode = new NAryNode(folderName);
             newNode.id = this.size;
-            parent.children.push(newNode);
             this.size++;
+            parent.children.push(newNode);
+            return true;
         }else{
             alert("La ruta no existe");
+            return false;
         }
     }
 
     //-----------------------------------------------------------
-    //---------------------GET folder METHOD-----------------------
+    //---------------------DELETE METHOD-------------------------
+    delete(folderName){
+        if(folderName == this.root.name){
+            alert("No se puede eliminar la carpeta raíz");
+            return false;
+        }else{
+            let parent = folderName.substring(0, folderName.lastIndexOf('/'));
+            let folder = folderName.substring(folderName.lastIndexOf('/') + 1);
+            let parentNode = this.getFolder(parent);
+            if(parentNode){
+                let index = parentNode.children.findIndex(child => child.name == folder);
+                if(index != -1){
+                    parentNode.children.splice(index, 1);
+                    return true;
+                }else{
+                    alert("La carpeta no existe");
+                    return false;
+                }
+            }else{
+                alert("La ruta no existe");
+                return false;
+            }
+        }
+    }
+
+    //-----------------------------------------------------------
+    //---------------------GET FOLDER METHOD---------------------
     getFolder(folderName){
-        if(folderName == '/'){
+        if(folderName == this.root.name){
             return this.root;
         }else{
             let temp = this.root;
             let folders = folderName.split('/');
-            folders = folders.filter(folder => folder != '');
+            folders = folders.filter(str => str != '');
             let folder = null;
-            while(folders.lenght > 0){
+            while(folders.length > 0){
                 let currentfolder = folders.shift();
-                folder = temp.children.find(folder => folder.name == currentfolder);
+                folder = temp.children.find(nfolder => nfolder.name == currentfolder);
                 if(typeof folder == 'undefined' || folder == null){
                     return null;
                 }
                 temp = folder;
             }
-            return folder;
+            return temp;
         }
     }
 
     //-----------------------------------------------------------
     //---------------------METHOD TO GRAPH-----------------------
-    graph(){
+    treeGraph(){
         let nodes = "";
         let connections = "";
 
@@ -68,9 +96,10 @@ class NAryTree{
     //---------------------METHOD TO GET HTML--------------------
     getHtml(folder){
         let node = this.getFolder(folder);
+        //console.log(node);
         let html = "";
         node.children.map(child => {
-            html = `<div class="col-2 folder" onclick="insideFolder('${child.name}')">
+            html += `<div class="col-2 folder" onclick="insideFolder('${child.name}')">
                         <img src="./imgs/folder.png" width="100%"/>
                         <p class="h6 text-center">${child.name}</p>
                     </div>`})

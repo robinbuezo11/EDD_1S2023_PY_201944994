@@ -178,26 +178,64 @@ class AvlTree{
     }
 
     //-----------------------------------------------------------
-    //----------------------SEARCH USER FOR LOGIN----------------
-    userLogin(carnet, pass){
-        let user = this.#userloginRecursive(this.root, carnet, pass);
+    //--------------------------GET USER-------------------------
+    getUser(carnet){
+        let user = this.#getUserRecursive(this.root, carnet);
         return user;
     }
-    #userloginRecursive(current, carnet, pass){
-        if(current.user.carnet == carnet && current.user.pass == pass){
+    #getUserRecursive(current, carnet){
+        if(current.user.carnet == carnet){
             return current.user;
         }
         if(current.left != null){
-            let user = this.#userloginRecursive(current.left, carnet, pass);
+            let user = this.#getUserRecursive(current.left, carnet);
             if(user != null){
                 return user;
             }
         }
         if(current.right != null){
-            let user = this.#userloginRecursive(current.right, carnet, pass);
+            let user = this.#getUserRecursive(current.right, carnet);
             if(user != null){
                 return user;
             }
+        }
+    }
+
+    //-----------------------------------------------------------
+    //--------------------------SET USER-------------------------
+    setUser(user){
+        return this.#setUserRecursive(this.root, user)
+    }
+    #setUserRecursive(current, user){
+        let changed = false;
+        if(current.user.carnet == user.carnet){
+            current.user = user;
+            changed = true;
+            return changed;
+        }
+        if(current.left != null){
+            changed = this.#setUserRecursive(current.left, user);
+            if(changed){
+                return changed;
+            }
+        }
+        if(current.right != null){
+            changed = this.#setUserRecursive(current.right, user);
+            if(changed){
+                return changed;
+            }
+        }
+        return changed;
+    }
+
+    //-----------------------------------------------------------
+    //----------------------SEARCH USER FOR LOGIN----------------
+    userLogin(carnet, pass){
+        let user = this.getUser(carnet);
+        if(user && user.pass == pass){
+            return user;
+        }else{
+            return null;
         }
     }
 

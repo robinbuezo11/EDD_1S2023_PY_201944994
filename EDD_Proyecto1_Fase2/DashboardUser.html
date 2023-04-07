@@ -54,7 +54,7 @@
                         <button type="button" onclick="backRoot()" class="btn btn-light w-100">Inicio</button>    
                     </div>
                     <div class="col-2">
-                        <button id="danger" class="btn w-100 btn-light" onclick="clearUsers()">Eliminar</button>    
+                        <button id="danger" class="btn w-100 btn-light" onclick="deleteFolder()">Eliminar</button>    
                     </div>
                 </div>
                 <img id="imagenSubida"/>
@@ -69,7 +69,7 @@
                     <hr>
                     <div class="col-1"></div>
                     <div class="col-4">
-                        <button type="button" onclick="showTreeGraph()" class="btn btn-light w-100">Reporte de Carpetas</button>
+                        <button type="button" onclick="openGraph()" class="btn btn-light w-100">Reporte de Carpetas</button>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-4">
@@ -81,17 +81,23 @@
         </div>
         <a download=""></a>
     </div>
+    <!-- <div id="context-menu">
+
+    </div> -->
 
     <!-- JQuery & Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"</script>
 
     <!-- Utils -->
-    <script src="./JS/libs/cycle.js"></script>
-    <script src="./JS/structures/User.js"></script>
-    <script src="./JS/structures/NAryNode.js"></script>
-    <script src="./JS/structures/NAryTree.js"></script>
-    <script src="./JS/dashUser.js"></script>
+        <script src="./JS/libs/cycle.js"></script>
+        <script src="./JS/structures/NAryNode.js"></script>
+        <script src="./JS/structures/NAryTree.js"></script>
+        <script src="./JS/structures/User.js"></script>
+        <script src="./JS/structures/AvlNode.js"></script>
+        <script src="./JS/structures/AvlTree.js"></script>
+        <script src="./JS/dashUser.js"></script>
+
 
 </body>
 </html>
