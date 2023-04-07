@@ -127,6 +127,10 @@ const toBase64 = file => new Promise((resolve, reject) => {
 //---------------------INSERT FILE---------------------------
 const uploadFile = async (e) => {
     e.preventDefault();
+    if($('#file').val() == ''){
+        alert("Seleccione un archivo");
+        return;
+    }
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
     let path = $('#path').val();
@@ -139,6 +143,7 @@ const uploadFile = async (e) => {
     })
     //console.log(form.file.type);
     showFolders();
+    $('#file').val('');
 }
 
 $(document).ready(welcomeUser)

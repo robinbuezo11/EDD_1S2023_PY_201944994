@@ -4,6 +4,10 @@ let users = new AvlTree();
 //-----------------------USERS UPLOAD------------------------
 function loadUsersForm(e){
     e.preventDefault();
+    if($('#inputFile').val() == ''){
+        alert("No se ha seleccionado ningún archivo");
+        return;
+    }
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
     let usersArray = [];
@@ -41,6 +45,7 @@ function loadUsersForm(e){
 
             alert("¡Usuarios cargados correctamente!");
         }
+        $('#inputFile').val('');
     }catch(error){
         console.log(error);
         alert("Error en la inserción de Usuarios")
