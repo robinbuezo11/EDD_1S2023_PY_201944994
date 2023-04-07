@@ -95,6 +95,8 @@ function deleteFolder(){
     }
 }
 
+//-----------------------------------------------------------
+//----------------SAVE USER IN AVLTREE-----------------------
 function saveUser(){
     let users = new AvlTree();
     if(localStorage.getItem('users') != null){
@@ -107,11 +109,31 @@ function saveUser(){
     }
 }
 
-/* const toBase64 = file => new Promise((resolve, reject) => {
+//-----------------------------------------------------------
+//----------------------PARSE TO BASE64----------------------
+const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
-}); */
+});
+
+//-----------------------------------------------------------
+//---------------------INSERT FILE---------------------------
+const uploadFile = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const form = Object.fromEntries(formData);
+    let path = $('#path').val();
+    //console.log(form.file)
+    let parseBase64 = await toBase64(form.file);
+    folders.getFolder(path).files.push({
+        name: form.file.name.substring(0, form.file.name.lastIndexOf('.')),
+        content: parseBase64, 
+        type: form.file.type
+    })
+    //console.log(form.file.type);
+    showFolders();
+}
 
 $(document).ready(welcomeUser)

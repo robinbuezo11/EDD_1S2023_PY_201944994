@@ -5,6 +5,7 @@ class User{
         this.carnet = carnet
         this.pass = pass;
         this.folders = new NAryTree();
+        //Bitacora - Lista doble enlazada
     }
 }
 
