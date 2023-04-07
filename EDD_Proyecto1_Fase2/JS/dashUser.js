@@ -39,7 +39,12 @@ function newFolder(e){
     e.preventDefault();
     let folderName = $('#folderName').val();
     let folderPath = $('#path').val();
-    if(folders.insert(folderName, folderPath) && folderName != ''){
+    if(folderName == ''){
+        alert("Ingrese un nombre para la carpeta");
+        return;
+    }
+    //console.log(folderName);
+    if(folders.insert(folderName, folderPath)){
         alert("Carpeta creada con éxito");
         user.folders.root = folders.root;
         localStorage.setItem('user', JSON.stringify(user));

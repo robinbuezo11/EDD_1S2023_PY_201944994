@@ -204,6 +204,9 @@ class AvlTree{
     //-----------------------------------------------------------
     //--------------------------SET USER-------------------------
     setUser(user){
+        if(!this.root){
+            return false;
+        }
         return this.#setUserRecursive(this.root, user)
     }
     #setUserRecursive(current, user){
