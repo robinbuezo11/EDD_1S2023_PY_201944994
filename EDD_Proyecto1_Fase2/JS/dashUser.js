@@ -1,5 +1,6 @@
 let user = new User(null,null,null,null);
 let folders = new NAryTree();
+let perms = new SparseMatrix();
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
@@ -20,6 +21,7 @@ function welcomeUser(){
 //-----------------------SHOW FOLDERS------------------------
 function showFolders(){
     let folderPath = $('#path').val();
+    perms.root = folders.getFolder(folderPath).perms.root;
     $('#folders').html(folders.getHtml(folderPath));
 }
 
@@ -49,8 +51,8 @@ function newFolder(e){
         user.folders.root = folders.root;
         localStorage.setItem('user', JSON.stringify(user));
         //console.log(folders);
-        saveUser();
         showFolders();
+        saveUser();
     }
     $('#folderName').val('');
 }
@@ -94,8 +96,8 @@ function deleteFolder(){
             }else{
                 $('#path').val(folder.substring(0, folder.lastIndexOf('/')));
             }
-            saveUser();
             showFolders();
+            saveUser();
         }
     }
 }
@@ -140,9 +142,15 @@ const uploadFile = async (e) => {
         name: form.file.name.substring(0, form.file.name.lastIndexOf('.')),
         content: parseBase64, 
         type: form.file.type
-    })
-    //console.log(form.file.type);
+    });
+
+    perms.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
+    folders.getFolder(path).perms.root = perms.root;
+    console.log(perms.graphMatrix());
     showFolders();
+
+    //SE DEBEN ASIGNAR LOS NUEVOS PERMISOS AL FOLDER Y LUEGO LOS FOLDER AL USUARIO Y POR ULTIMO GUARDAR A ESTE EN EL LOCALSTORAGE
+
     $('#file').val('');
 }
 
