@@ -1,13 +1,16 @@
 let user = new User(null,null,null,null);
 let folders = new NAryTree();
-let perms = new SparseMatrix();
+let files = new SparseMatrix();
+let binnacle = new CircularList();
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
 function welcomeUser(){
     if(localStorage.getItem('user') != null){
-        user = JSON.parse(localStorage.getItem('user'));
+        user = JSON.retrocycle(JSON.parse(localStorage.getItem('user')));
         folders.root = user.folders.root;
+        folders.size = user.folders.size;
+        binnacle.root = user.binnacle.root;
         $('#welcomeusr').html('¡Bienvenido ' + user.firstname + ' ' + user.lastname + '!');
         showFolders();
 
@@ -21,7 +24,7 @@ function welcomeUser(){
 //-----------------------SHOW FOLDERS------------------------
 function showFolders(){
     let folderPath = $('#path').val();
-    perms.root = folders.getFolder(folderPath).perms.root;
+    files.root = folders.getFolder(folderPath).files.root;
     $('#folders').html(folders.getHtml(folderPath));
 }
 
@@ -31,6 +34,9 @@ function logoutUser(){
     if(confirm("¿Está seguro que desea cerrar sesión?")){
         saveUser();
         localStorage.removeItem('user');
+        if(localStorage.getItem('path') != null){
+            localStorage.removeItem('path');
+        }
         window.location.href = "index.html";
     }
 }
@@ -49,7 +55,14 @@ function newFolder(e){
     if(folders.insert(folderName, folderPath)){
         alert("Carpeta creada con éxito");
         user.folders.root = folders.root;
-        localStorage.setItem('user', JSON.stringify(user));
+        user.folders.size = folders.size;
+
+        //INSERT ACTION IN THE BINNACLE
+        binnacle.insert("Acción: Se creó la carpeta \"" + folderName + "\"\n" + getTime());
+        user.binnacle.root = binnacle.root;
+        
+
+        localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
         //console.log(folders);
         showFolders();
         saveUser();
@@ -75,9 +88,17 @@ function backRoot(){
 }
 
 //-----------------------------------------------------------
-//----------------------SHOW GRAPH---------------------------
-function openGraph(){
+//---------------------SHOW GRAPH FOLDERS--------------------
+function openGraphFolders(){
     let windows = window.open("FoldersGraph.html", "_blank");
+    windows.focus();
+}
+
+//-----------------------------------------------------------
+//---------------------SHOW GRAPH FILES----------------------
+function openGraphFiles(){
+    localStorage.setItem('path', JSON.stringify($('#path').val()));
+    let windows = window.open("FilesGraph.html", "_blank");
     windows.focus();
 }
 
@@ -89,7 +110,13 @@ function deleteFolder(){
     if(confirm("¿Está seguro que desea eliminar la carpeta " + folder + "?")){
         if(folders.delete(folder)){
             user.folders.root = folders.root;
-            localStorage.setItem('user', JSON.stringify(user));
+            user.folders.size = folders.size;
+            
+            //INSERT ACTION IN THE BINNACLE
+            binnacle.insert("Acción: Se eliminó la carpeta \"" + folder.substring(folder.lastIndexOf+1) + "\"\n" + getTime());
+            user.binnacle.root = binnacle.root;
+            
+            localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
             alert("Carpeta eliminada con éxito");
             if(folder.lastIndexOf('/') == 0){
                 $('#path').val('/');
@@ -107,10 +134,10 @@ function deleteFolder(){
 function saveUser(){
     let users = new AvlTree();
     if(localStorage.getItem('users') != null){
-        users.root = JSON.parse(localStorage.getItem('users')).root;
+        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
     }
     if(users.setUser(user)){
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
     }else{
         console.log("No se pudo guardar el usuario");
     }
@@ -138,20 +165,43 @@ const uploadFile = async (e) => {
     let path = $('#path').val();
     //console.log(form.file)
     let parseBase64 = await toBase64(form.file);
-    folders.getFolder(path).files.push({
+    
+    //The files are saved now in the SparseMatrix
+    /* folders.getFolder(path).files.push({
         name: form.file.name.substring(0, form.file.name.lastIndexOf('.')),
         content: parseBase64, 
         type: form.file.type
-    });
+    }); */
 
-    perms.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
-    folders.getFolder(path).perms.root = perms.root;
-    console.log(perms.graphMatrix());
+    files.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
+    
+    folders.getFolder(path).files.root = files.root;
+    user.folders.root = folders.root;
+    user.folders.size = folders.size;
+
+    //INSERT ACTION IN THE BINNACLE
+    binnacle.insert("Acción: Se creo el archivo \"" + form.file.name +"\"\n" + getTime());
+    user.binnacle.root = binnacle.root;
+    
+    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     showFolders();
-
-    //SE DEBEN ASIGNAR LOS NUEVOS PERMISOS AL FOLDER Y LUEGO LOS FOLDER AL USUARIO Y POR ULTIMO GUARDAR A ESTE EN EL LOCALSTORAGE
+    saveUser();
 
     $('#file').val('');
+}
+
+//-----------------------------------------------------------
+//---------------------GET CURRENT TIME----------------------
+function getTime(){
+    let date = new Date();
+    let datestr = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    datestr += "-";
+    datestr += (date.getMonth()+1) < 10 ? "0" + (date.getMonth()+1) : (date.getMonth()+1);
+    datestr += "-" + (date.getFullYear()-2000);
+    let timestr = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(); 
+    timestr += ":";
+    timestr += date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    return "Fecha: " + datestr + "\nHora: " + timestr;
 }
 
 $(document).ready(welcomeUser)

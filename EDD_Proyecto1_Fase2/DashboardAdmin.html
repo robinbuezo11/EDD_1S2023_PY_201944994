@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-2">
-                    <a id="danger" class="btn mt-5 w-100 btn-danger" href="index.html">Cerrar Sesión</a>    
+                    <button id="logout" class="btn mt-5 w-100 btn-danger" onclick="logoutAdmin()">Cerrar Sesión</button>      
                 </div>
             </div>
             <hr class="mb-5">
@@ -48,10 +48,10 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <button class="btn w-100 btn-light">Mostrar</button>    
+                                <button class="btn w-100 btn-light btn-sm">Mostrar</button>    
                             </div>
                             <div class="col-2">
-                                <button id="danger" class="btn w-100 btn-light" onclick="clearUsers()">Limpiar</button>    
+                                <button id="danger" class="btn w-100 btn-light btn-sm" onclick="clearUsers()">Limpiar</button>    
                             </div>
                         </div>
                     </form>
@@ -63,6 +63,7 @@
                                     <th scope="col">Carnet</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Contraseña</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,6 +84,8 @@
         <script src="./JS/structures/SparseMatrix.js"></script>
         <script src="./JS/structures/NAryNode.js"></script>
         <script src="./JS/structures/NAryTree.js"></script>
+        <script src="./JS/structures/ListNode.js"></script>
+        <script src="./JS/structures/CircularList.js"></script>
         <script src="./JS/structures/User.js"></script>
         <script src="./JS/structures/AvlNode.js"></script>
         <script src="./JS/structures/AvlTree.js"></script>

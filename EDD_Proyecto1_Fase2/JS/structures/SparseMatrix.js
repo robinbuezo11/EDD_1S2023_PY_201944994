@@ -8,7 +8,7 @@ class SparseMatrix{
     //----------------------INSERT FILE--------------------------
     insert(carnet, file, perm, name, value, type){
         this.#carnetHeader(carnet);
-        this.#fileHeader(file);
+        this.#fileHeader(file,name,value,type);
 
         const node = new MatrixNode(carnet,file,perm,name,value,type);
 
@@ -46,8 +46,8 @@ class SparseMatrix{
 
     //-----------------------------------------------------------
     //--------------------INSERT FILE (ROWS)---------------------
-    #fileHeader(file){
-        const curr = new MatrixNode(null,null, file);
+    #fileHeader(file,name,value,type){
+        const curr = new MatrixNode(null,null,file,name,value,type);
         if(this.root.down == null){
             this.root.down = curr;
             curr.up = this.root;
@@ -129,9 +129,9 @@ class SparseMatrix{
 
     //-----------------------------------------------------------
     //----------------------GRAPH MATRIX-------------------------
-    graphMatrix(){
-        let code = "digraph G { \nnode[nodesep=\"0.8\", ranksep=\"0.6\"]; \n";
-		code +="M0[ label = \"Archivos\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"slateblue\" group=\"0\"]; \n";
+    matrixGraph(){
+        let code = " \nnode[nodesep=\"0.8\", ranksep=\"0.6\"]; \n";
+		code +="M0[ label = \"ARCHIVOS\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"lightsalmon\" group=\"0\"]; \n";
         code += this.#headersGraph()
         code += this.#nodesGraph()
         // console.log(code)
@@ -144,7 +144,7 @@ class SparseMatrix{
         let temp = null;
         try { temp = this.root.right } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "X" + temp.perm + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group = ${temp.perm} ];\n`
+            nodes += "X" + temp.perm + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="mediumspringgreen" group = ${temp.perm} ];\n`
             rank += "X" + temp.perm + ";";
             if(temp.right != null){
                 conn += "X" + temp.perm + "->";
@@ -157,7 +157,7 @@ class SparseMatrix{
         conn += 'M0 ->';
         try { temp = this.root.down } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "Y" + temp.perm.replace(".","") + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="skyblue3" group="0"];\n`
+            nodes += "Y" + temp.perm.replace(".","") + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="mediumspringgreen" group="0"];\n`
             if(temp.down != null){
                 conn += "Y" + temp.perm.replace(".","") + "->";
             }else{
@@ -180,7 +180,7 @@ class SparseMatrix{
             try { tcarnet = tfile.right } catch (error) { tcarnet = null; console.log("errorFile2"); } 
             conn += `Y${tcarnet.file.replace(".","")} -> `
             while(tcarnet != null){
-                nodes += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet}[label="${tcarnet.perm}" width=1.5 shape="square" style="filled" fillcolor="slategray1" group="${tcarnet.carnet}"];\n`
+                nodes += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet}[label="${tcarnet.perm}" width=1.5 shape="square" style="filled" fillcolor="lightyellow" group="${tcarnet.carnet}"];\n`
                 rank += `{rank=same; Y${tcarnet.file.replace(".","")}; S${tcarnet.file.replace(".","")}_${tcarnet.carnet};}\n`;
                 if(tcarnet.right != null){
                     conn += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet} ->`;
@@ -208,6 +208,6 @@ class SparseMatrix{
             tcarnet = tcarnet.right;
         }
 
-        return nodes + "\n" + rank + "\n" + conn + "}";
+        return nodes + "\n" + rank + "\n" + conn;
     }
 }

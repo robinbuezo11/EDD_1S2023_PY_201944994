@@ -106,30 +106,34 @@ class NAryTree{
                     </div>`})
 
         //---------------------PRINT FILES-----------------------
-        node.files.map(file => {
-            if(file.type.substring(0,file.type.indexOf("/")) == 'image'){
-                html += `<div class="folder col-2">
-                            <a href="${file.content}" download="${file.name}">
-                                <img src="./imgs/img.png" width="100%"/>
-                            </a>
-                            <p class="h6 text-center">${file.name}</p>
-                        </div>`;
-            }else if(file.type == 'application/pdf'){
-                html += `<div class="folder col-2">
-                            <a href="${file.content}" download="${file.name}">
-                                <img src="./imgs/pdf.png" width="100%"/>
-                            </a>
-                            <p class="h6 text-center">${file.name}</p>
-                        </div>`;
-            }else if(file.type == 'text/plain'){
-                html += `<div class="folder col-2">
-                            <a href="${file.content}" download="${file.name}.txt">
-                                <img src="./imgs/txt.png" width="100%"/>
-                            </a>
-                            <p class="h6 text-center">${file.name}</p>
-                        </div>`;
+        if(node.files.root != null){
+            let file = node.files.root.down;
+            while(file){
+                if(file.type.substring(0,file.type.indexOf("/")) == 'image'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}">
+                                    <img src="./imgs/img.png" width="100%"/>
+                                </a>
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }else if(file.type == 'application/pdf'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}">
+                                    <img src="./imgs/pdf.png" width="100%"/>
+                                </a>
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }else if(file.type == 'text/plain'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}.txt">
+                                    <img src="./imgs/txt.png" width="100%"/>
+                                </a>
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }
+                file = file.down;
             }
-        });
+        };
         return html;
     }
 }

@@ -24,7 +24,7 @@ function loadUsersForm(e){
             }
 
             //SAVE TREE IN LOCAL STORAGE
-            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
 
             //INSERT USERS IN THE TABLE
             /* $('#usersTable tbody').html(
@@ -58,7 +58,7 @@ function loadLocalUsers(){
     if (localStorage.getItem('users') == null) {
         return;
     }
-    users.root = JSON.parse(localStorage.getItem('users')).root;
+    users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
 }
 
 //-----------------------------------------------------------
@@ -100,6 +100,17 @@ function openGraph(){
 }
 
 //-----------------------------------------------------------
+//----------------------SHOW BINNACLE---------------------------
+function showBinnacle(carnet){
+    let user = users.getUser(carnet);
+    if(user){
+        localStorage.setItem('userbin', JSON.stringify(JSON.decycle(user)));
+        let windows = window.open("BinnacleGraph.html", "_blank");
+        windows.focus();
+    }
+}
+
+//-----------------------------------------------------------
 //----------------------CLEAR USERS--------------------------
 function clearUsers(){
     if(confirm("¿Está seguro de eliminar todos los usuarios?")){
@@ -122,6 +133,17 @@ function showLocalUsers(){
             users.inOrder()
         );
         $('#routes').val('inOrder');
+    }
+}
+
+//-----------------------------------------------------------
+//--------------------------LOGOUT---------------------------
+function logoutAdmin(){
+    if(confirm("¿Está seguro que desea cerrar sesión?")){
+        if(localStorage.getItem('userbin') != null){
+            localStorage.removeItem('userbin');
+        }
+        window.location.href = "index.html";
     }
 }
 
