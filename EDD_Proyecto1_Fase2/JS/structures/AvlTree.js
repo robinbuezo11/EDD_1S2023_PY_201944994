@@ -47,7 +47,7 @@ class AvlTree{
                 }
             }
         }else{
-            alert("El usuario ya existe");
+            alert("El usuario " + user.carnet + " ya existe");
         }
         node.height = this.getMaxHeight(this.getHeight(node.left), this.getHeight(node.right)) + 1;
         return node;
@@ -107,6 +107,7 @@ class AvlTree{
                 <th>${current.user.carnet}</th>
                 <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
+                <td><button class="btn btn-sm" id="binnacle" onclick="showBinnacle(${current.user.carnet})">Bitácora</button></td>
             </tr>
         `;
         if(current.right != null){
@@ -125,6 +126,7 @@ class AvlTree{
                 <th>${current.user.carnet}</th>
                 <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
+                <td><button class="btn btn-sm" id="binnacle" onclick="showBinnacle(${current.user.carnet})">Bitácora</button></td>
             </tr>
         `;
         if(current.left != null){
@@ -152,6 +154,7 @@ class AvlTree{
                 <th>${current.user.carnet}</th>
                 <td>${current.user.firstname} ${current.user.lastname}</td>
                 <td>${current.user.pass}</td>
+                <td><button class="btn btn-sm" id="binnacle" onclick="showBinnacle(${current.user.carnet})">Bitácora</button></td>
             </tr>
         `;
         return row;
@@ -204,6 +207,9 @@ class AvlTree{
     //-----------------------------------------------------------
     //--------------------------SET USER-------------------------
     setUser(user){
+        if(!this.root){
+            return false;
+        }
         return this.#setUserRecursive(this.root, user)
     }
     #setUserRecursive(current, user){

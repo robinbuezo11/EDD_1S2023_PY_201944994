@@ -5,6 +5,7 @@ class User{
         this.carnet = carnet
         this.pass = pass;
         this.folders = new NAryTree();
+        this.binnacle = new CircularList();
     }
 }
 

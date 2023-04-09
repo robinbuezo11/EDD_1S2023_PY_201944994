@@ -22,13 +22,13 @@ function login(e){
     //---------------------VERIFY USER----------------------
     if(localStorage.getItem('users') != null){
         let users = new AvlTree();
-        users.root = JSON.parse(localStorage.getItem('users')).root;
+        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
         //-----------------SEARCH USER----------------------
         userlogin = users.userLogin(user, pass);
         if(userlogin){
             //console.log(userlogin);
             //---------------SAVE USER----------------------
-            localStorage.setItem('user', JSON.stringify(userlogin));
+            localStorage.setItem('user', JSON.stringify(JSON.decycle(userlogin)));
             window.location.href = "DashboardUser.html";
             return;
         }

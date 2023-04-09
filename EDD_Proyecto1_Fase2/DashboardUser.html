@@ -9,14 +9,14 @@
         <link rel="shortcut icon" href="#">
     </head>
 <body class="bg-dark">
-    <div class="container text-light py-5">
+    <div class="container text-light">
         <div class="row">
             <div class="mt-5 col-8">
-                <h1 id="welcomeusr" class="fw-bold pt-5"></h1>
+                <h1 id="welcomeusr" class="fw-bold"></h1>
             </div>
             <div class="col-2"></div>
             <div class="col-2 mt-5">
-                <button id="danger" class="btn mt-5 w-100 btn-danger" onclick="logoutUser()">Cerrar Sesión</button>    
+                <button id="logout" class="btn w-100 btn-danger" onclick="logoutUser()">Cerrar Sesión</button>    
             </div>
         </div>
         <hr>
@@ -44,17 +44,17 @@
                 <h5 class="text-center">Archivos de Carpeta</h5>
                 <hr>
                 <div class="row">
-                    <div class="col-2 pt-2">
-                        <strong>Ruta Actual</strong>
+                    <div class="col-2 pt-1">
+                        <h5><b>Ruta Actual</b></h5>
                     </div>
                     <div class="col-6">
                         <input type="text" id="path" name="path"  class="form-control" disabled value="/" />
                     </div>
                     <div class="col-2" >
-                        <button type="button" onclick="backRoot()" class="btn btn-light w-100">Inicio</button>    
+                        <button type="button" onclick="backRoot()" class="btn btn-light w-100 btn-sm">Inicio</button>    
                     </div>
                     <div class="col-2">
-                        <button id="danger" class="btn w-100 btn-light" onclick="deleteFolder()">Eliminar</button>    
+                        <button id="danger" class="btn w-100 btn-light btn-sm" onclick="deleteFolder()">Eliminar</button>    
                     </div>
                 </div>
                 <img id="imagenSubida"/>
@@ -69,11 +69,11 @@
                     <hr>
                     <div class="col-1"></div>
                     <div class="col-4">
-                        <button type="button" onclick="openGraph()" class="btn btn-light w-100">Reporte de Carpetas</button>
+                        <button type="button" onclick="openGraphFolders()" class="btn btn-light w-100">Reporte de Carpetas</button>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-4">
-                        <button type="button" onclick="showMatrixGraph()" class="btn btn-light w-100">Reporte de Archivos</button>
+                        <button type="button" onclick="openGraphFiles()" class="btn btn-light w-100">Reporte de Archivos</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -91,8 +91,12 @@
 
     <!-- Utils -->
         <script src="./JS/libs/cycle.js"></script>
+        <script src="./JS/structures/MatrixNode.js"></script>
+        <script src="./JS/structures/SparseMatrix.js"></script>
         <script src="./JS/structures/NAryNode.js"></script>
         <script src="./JS/structures/NAryTree.js"></script>
+        <script src="./JS/structures/ListNode.js"></script>
+        <script src="./JS/structures/CircularList.js"></script>
         <script src="./JS/structures/User.js"></script>
         <script src="./JS/structures/AvlNode.js"></script>
         <script src="./JS/structures/AvlTree.js"></script>

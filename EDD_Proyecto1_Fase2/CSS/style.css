@@ -11,6 +11,7 @@
     /* Clip Background Image */
 
 	  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+	  background-size: 550vw;
 	  -webkit-background-clip: text;
 	  background-clip: text;
 
@@ -52,13 +53,13 @@ h5{
 	color: rgb(255, 115, 0);
 }
 
-.btn {
+.btn-light{
     background-color: chocolate;
     color: white;
     font-size: 150%;
 }
 
-.form-control{
+#user, #pass{
     color: black;
     font-size: 125%;
     font-weight: bold;
@@ -67,7 +68,13 @@ h5{
 #danger{
 	background-color: rgb(191, 40, 40);
     color: white;
-    font-size: 150%;
+    font-size: 100%;
+}
+
+#logout{
+	background-color: rgb(191, 40, 40);
+    color: white;
+    font-size: 130%;
 }
 
 hr{
@@ -79,4 +86,13 @@ hr{
 	color: rgb(0, 0, 0);
 	transform: .3s;
 	cursor: pointer;
+}
+
+#binnacle{
+	background-color: rgb(215, 215, 215);
+	color: rgb(0, 0, 0);
+}
+
+.btn-sm{
+	font-size: 100%;
 }

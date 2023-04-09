@@ -98,34 +98,42 @@ class NAryTree{
         let node = this.getFolder(folder);
         //console.log(node);
         let html = "";
+        //---------------------PRINT FOLDERS---------------------
         node.children.map(child => {
-            html += `<div class="col-2 folder" onclick="insideFolder('${child.name}')">
+            html += `<div class="folder col-2" onclick="insideFolder('${child.name}')">
                         <img src="./imgs/folder.png" width="100%"/>
                         <p class="h6 text-center">${child.name}</p>
                     </div>`})
-        node.files.map(file => {
-            if(file.type == 'text/plain'){
-                let ext = new Blob([file.content], file.type);
-                const url = URL.createObjectURL(ext);
-                html += `<div class="col-2 folder">
-                            <img src="./imgs/file.png" width="100%"/>
-                            <p class="h6 text-center">
-                                <a href="${url}" download>
-                                    ${file.name}
+
+        //---------------------PRINT FILES-----------------------
+        if(node.files.root != null){
+            let file = node.files.root.down;
+            while(file){
+                if(file.type.substring(0,file.type.indexOf("/")) == 'image'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}">
+                                    <img src="./imgs/img.png" width="100%"/>
                                 </a>
-                            </p>
-                        </div>`;
-            }else{
-                html += `<div class="col-2 folder">
-                            <img src="./imgs/file.png" width="100%"/>
-                            <p class="h6 text-center">
-                                <a href="${file.content}" download>
-                                    ${file.name}
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }else if(file.type == 'application/pdf'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}">
+                                    <img src="./imgs/pdf.png" width="100%"/>
                                 </a>
-                            </p>
-                        </div>`;
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }else if(file.type == 'text/plain'){
+                    html += `<div class="folder col-2">
+                                <a href="${file.value}" download="${file.name}.txt">
+                                    <img src="./imgs/txt.png" width="100%"/>
+                                </a>
+                                <p class="h6 text-center">${file.name}</p>
+                            </div>`;
+                }
+                file = file.down;
             }
-        });
+        };
         return html;
     }
 }
