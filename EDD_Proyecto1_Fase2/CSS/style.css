@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+a:link, a:visited, a:active {
+    text-decoration:none;
+	color: black;
+	display: flex;
+}
+a span{
+	padding-top: 5px;
+}
 span{
 	margin: 0;
 	padding: 0;
@@ -35,6 +43,22 @@ span{
 .content .item span{
 	font-size: 12px;
 	margin-left: 8px;
+}
+
+h6,h4{
+	font-family: 'Poppins', sans-serif;
+}
+.share{
+	position: absolute;
+	visibility: hidden;
+	width: 20vw;
+	height: 50vh;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+.share .content{
+	padding: 10px 10px;
 }
 
 #eddtitle {
@@ -118,6 +142,10 @@ h5{
 
 hr{
 	border: 2px solid rgb(255, 120, 0);
+}
+
+#hrshare{
+	border: 2px solid rgb(0, 0, 0);
 }
 
 .folder:hover{

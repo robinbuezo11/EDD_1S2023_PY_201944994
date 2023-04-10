@@ -87,8 +87,10 @@
         <div class="content">
             <ul class="menu">
                 <li class="item" id="itmdownload">
-                    <i class="uil uil-download-alt"></i>
-                    <span>Descargar</span>
+                    <a href="" id="adownload">
+                        <i class="uil uil-download-alt"></i>
+                        <span>Descargar</span>
+                    </a>
                 </li>
                 <li class="item" id="itmedit">
                     <i class="uil uil-edit"></i>
@@ -103,6 +105,36 @@
                     <span>Eliminar</span>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="share text-center" >
+        <div class="content">
+            <h4>COMPARTIR</h4>
+                    <hr id="hrshare">
+                    <h6 class="col-3 text-start ps-1"><b>Usuario</b></h6>
+                    <form class="form" onsubmit="">
+                        <input type="text" id="folderName" name="folderName" class="form-control" placeholder="Usuario">
+                        <div id="access" class="mt-3">
+                            <h6 class="col-3 text-start ps-1"><b>Permisos</b></h6>
+                            <select id="routes" name="routes" class="form-select">
+                                <option selected disabled>Seleccionar Permiso</option>
+                                <option value="r">Lectura</option>
+                                <option value="w">Escritura</option>
+                                <option value="r-w">Lectura y Escritura</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="form-group mt-4 col-4">
+                                <button id="danger" onclick="closeShare(event)" class="btn btn-light w-100 btn-sm">Cancelar</button>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="form-group mt-4 col-4">
+                                <button type="submit" class="btn btn-light w-100 btn-sm">Compartir</button>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </form>
         </div>
     </div>
 

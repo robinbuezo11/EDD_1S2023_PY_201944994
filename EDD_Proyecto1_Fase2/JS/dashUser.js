@@ -2,7 +2,8 @@ let user = new User(null,null,null,null);
 let folders = new NAryTree();
 let files = new SparseMatrix();
 let binnacle = new CircularList();
-let menu = document.querySelector(".wrapper")
+let menu = document.querySelector(".wrapper");
+let mnshare = document.querySelector(".share");
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
@@ -213,10 +214,10 @@ function getTime(){
 function contextMenu(e, itmname, itmvalue){
     e.preventDefault();
 
-    let x = e.pageX, y = e.pageY;
-    winwidth = window.innerWidth;
-    winheight = window.innerHeight;
-    cmwidth = menu.offsetWidth;
+    let x = e.pageX, y = e.pageY,
+    winwidth = window.innerWidth,
+    winheight = window.innerHeight,
+    cmwidth = menu.offsetWidth,
     cmheight = menu.offsetHeight;
 
     x = x > winwidth - cmwidth ? winwidth - cmwidth : x;
@@ -226,7 +227,32 @@ function contextMenu(e, itmname, itmvalue){
     menu.style.top = `${y}px`;
     menu.style.visibility = "visible";
 
-    let item = document.getElementById("itmdownload");
+    $("#adownload").attr('href',itmvalue);
+    $("#adownload").attr('download',itmname);
+    
+    $("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`)
+}
+
+function menuShare(e, itmname){
+    e.preventDefault();
+
+    let x = 0, y = 0,
+    winwidth = window.innerWidth,
+    winheight = window.innerHeight,
+    cmwidth = menu.offsetWidth,
+    cmheight = menu.offsetHeight;
+
+    x = (winwidth/2)-(cmwidth/2);
+    y = (winheight/2)-(cmheight/2);
+
+    mnshare.style.left = `${x}px`;
+    mnshare.style.top = `${y}px`;
+    mnshare.style.visibility = "visible";
+}
+
+function closeShare(e){
+    e.preventDefault();
+    mnshare.style.visibility = "hidden";
 }
 
 window.addEventListener('click', e => {
