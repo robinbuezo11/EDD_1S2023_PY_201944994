@@ -53,13 +53,14 @@ function newFolder(e){
         return;
     }
     //console.log(folderName);
-    if(folders.insert(folderName, folderPath)){
+    let name = folders.insert(folderName, folderPath);
+    if(name){
         alert("Carpeta creada con éxito");
         user.folders.root = folders.root;
         user.folders.size = folders.size;
 
         //INSERT ACTION IN THE BINNACLE
-        binnacle.insert("Acción: Se creó la carpeta \"" + folderName + "\"\n" + getTime());
+        binnacle.insert("Acción: Se creó la carpeta \"" + name + "\"\n" + getTime());
         user.binnacle.root = binnacle.root;
         
 
@@ -209,7 +210,7 @@ function getTime(){
     return "Fecha: " + datestr + "\nHora: " + timestr;
 }
 
-function contextMenu(e, item){
+function contextMenu(e, itmname, itmvalue){
     e.preventDefault();
 
     let x = e.pageX, y = e.pageY;
@@ -224,6 +225,8 @@ function contextMenu(e, item){
     menu.style.left = `${x}px`;
     menu.style.top = `${y}px`;
     menu.style.visibility = "visible";
+
+    let item = document.getElementById("itmdownload");
 }
 
 window.addEventListener('click', e => {
