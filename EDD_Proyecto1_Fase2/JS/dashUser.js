@@ -2,6 +2,7 @@ let user = new User(null,null,null,null);
 let folders = new NAryTree();
 let files = new SparseMatrix();
 let binnacle = new CircularList();
+let menu = document.querySelector(".wrapper")
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
@@ -97,6 +98,10 @@ function openGraphFolders(){
 //-----------------------------------------------------------
 //---------------------SHOW GRAPH FILES----------------------
 function openGraphFiles(){
+    if(files.matrixGraph() == null){
+        alert("No se puede crear la matriz por falta de archivos");
+        return;
+    }
     localStorage.setItem('path', JSON.stringify($('#path').val()));
     let windows = window.open("FilesGraph.html", "_blank");
     windows.focus();
@@ -203,5 +208,26 @@ function getTime(){
     timestr += date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
     return "Fecha: " + datestr + "\nHora: " + timestr;
 }
+
+function contextMenu(e, item){
+    e.preventDefault();
+
+    let x = e.pageX, y = e.pageY;
+    winwidth = window.innerWidth;
+    winheight = window.innerHeight;
+    cmwidth = menu.offsetWidth;
+    cmheight = menu.offsetHeight;
+
+    x = x > winwidth - cmwidth ? winwidth - cmwidth : x;
+    y = y > winheight - cmheight ? winheight - cmheight : y;
+
+    menu.style.left = `${x}px`;
+    menu.style.top = `${y}px`;
+    menu.style.visibility = "visible";
+}
+
+window.addEventListener('click', e => {
+    menu.style.visibility = "hidden";
+});
 
 $(document).ready(welcomeUser)

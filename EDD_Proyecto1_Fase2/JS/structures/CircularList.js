@@ -22,7 +22,7 @@ class CircularList{
         let id = 0;
         let nodes = "rankdir=LR;\nnode [shape=record];\n";
         if(this.root == null){
-            return graph + "Vacío";
+            return nodes + "Vacío";
         }
         let current = this.root;
         let conn = "";
