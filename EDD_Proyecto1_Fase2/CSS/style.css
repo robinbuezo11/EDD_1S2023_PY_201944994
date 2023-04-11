@@ -51,8 +51,8 @@ h6,h4{
 .share{
 	position: absolute;
 	visibility: hidden;
-	width: 20vw;
-	height: 50vh;
+	width: 400px;
+	height: 350px;
 	background-color: #fff;
 	border-radius: 10px;
 	box-shadow: 0 12px 35px rgba(0,0,0,0.1);

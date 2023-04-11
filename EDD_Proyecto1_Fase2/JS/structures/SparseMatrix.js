@@ -17,6 +17,18 @@ class SparseMatrix{
 
         this.#addCarnet(node, carnet);
         this.#addFile(node, newfile);
+        return newfile;
+    }
+
+    //-----------------------------------------------------------
+    //------------------------ADD PERMS--------------------------
+    insertPerms(carnet, file, perm, name, value, type){
+        this.#carnetHeader(carnet);
+
+        const node = new MatrixNode(carnet,file,perm,name,value,type);
+
+        this.#addCarnet(node, carnet);
+        this.#addFile(node, file);
     }
 
     //-----------------------------------------------------------
@@ -133,6 +145,23 @@ class SparseMatrix{
             }
             temp.right = newNode;
             newNode.left = temp;
+        }
+    }
+
+    //-----------------------------------------------------------
+    //--------------------------GET FILE-------------------------
+    getFile(filename){
+        if(this.root.down == null){
+            return null;
+        }else{
+            let current = this.root.down;
+            while(current){
+                if(current.perm == filename){
+                    return current;
+                }
+                current = current.down;
+            }
+            return null;
         }
     }
 

@@ -121,6 +121,9 @@ function clearUsers(){
             users = new AvlTree();
         }
         $('#usersTable tbody').html('');
+
+        let routesform = document.getElementById('routesform');
+        routesform.reset()
     }
 }
 
