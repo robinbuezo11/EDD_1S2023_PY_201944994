@@ -25,10 +25,10 @@ ___
 Para la creación se este software se utilizó el paradigma de Programación Orientada a Objetos, ya que esto da una mejor facilidad a la hora de manejar el archivo que se está manipulando a lo largo de toda la ejecución, como también el poder encapsular los objetos y luego poder utilizar los mismos objetos en los diferentes menús que se utilizan a lo largo del programa.
 
 #### **Diagrama de Clases**  
-![Nomenclatura](./Imgs/Classes.png "Nomenclatura") 
+![Nomenclatura](./imgs/Classes.png "Nomenclatura") 
 
 #### **Nomenclatura**  
-![Nomenclatura](./Imgs/Nomenclatura.png "Nomenclatura")  
+![Nomenclatura](./imgs/Nomenclatura.png "Nomenclatura")  
 
 #### **Estructuras (TDA)**  
 Para poder ir guardando la información necesaria en el sistema se hizo uso de algunas Estructuras, estas fueron creadas a lo largo de desarrollo haciendo uso de las clases que encapsulan los nodos de cada una de estas y las clases que encapsula las propias estructura. 
@@ -246,39 +246,39 @@ ___
 #### **Pantallas Principales**
 ##### ***Login***
 Esta es la pantalla principal de inicio de sesión.
-![Nomenclatura](./Imgs/Login.png "Nomenclatura")  
+![Nomenclatura](./imgs/Login.png "Nomenclatura")  
 
 ##### ***Dashboard Administrador***
 Esta es la pantalla del usuario *"Admin"*.
-![Nomenclatura](./Imgs/Admin.png "Nomenclatura")  
+![Nomenclatura](./imgs/Admin.png "Nomenclatura")  
 
 ##### ***Usuarios***
 Esta es la pantalla en donde se puede visualizar el reporte de usuarios.
-![Nomenclatura](./Imgs/Users.png "Nomenclatura") 
+![Nomenclatura](./imgs/Users.png "Nomenclatura") 
 
 ##### ***Bitácora***
 Esta es la pantalla en donde se puede visualizar el reporte de bitacora de cada usuario.
-![Nomenclatura](./Imgs/Binnacle.png "Nomenclatura") 
+![Nomenclatura](./imgs/Binnacle.png "Nomenclatura") 
 
 ##### ***Dashboard Usuario***
 Esta es la pantalla principal del usuario.
-![Nomenclatura](./Imgs/DashUser.png "Nomenclatura") 
+![Nomenclatura](./imgs/DashUser.png "Nomenclatura") 
 
 ##### ***Carpetas***
 Esta es la pantalla donde se puede visualizar el reporte de carpetas.
-![Nomenclatura](./Imgs/Folders.png "Nomenclatura") 
+![Nomenclatura](./imgs/Folders.png "Nomenclatura") 
 
 ##### ***Opciones de archivos***
 Esta es el menú al dar click derecho sobre los archivos.
-![Nomenclatura](./Imgs/ContextMenu.png "Nomenclatura") 
+![Nomenclatura](./imgs/ContextMenu.png "Nomenclatura") 
 
 ##### ***Compartir Archivos***
 Esta es la ventana para poder compartir los archivos con otros usuarios.
-![Nomenclatura](./Imgs/ShareFile.png "Nomenclatura") 
+![Nomenclatura](./imgs/ShareFile.png "Nomenclatura") 
 
 ##### ***Archivos***
 Esta es la ventana en donde se puede visualizar el reporte de archivos y sus permisos.
-![Nomenclatura](./Imgs/Files.png "Nomenclatura") 
+![Nomenclatura](./imgs/Files.png "Nomenclatura") 
 
 ##### ***Archivo JSON de los Estudiantes***
 Esta es la estructura que debe tener el archivo JSON para la carga de los usuarios.
