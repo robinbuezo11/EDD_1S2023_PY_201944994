@@ -2,6 +2,8 @@ let user = new User(null,null,null,null);
 let folders = new NAryTree();
 let files = new SparseMatrix();
 let binnacle = new CircularList();
+let menu = document.querySelector(".wrapper");
+let mnshare = document.querySelector(".share");
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
@@ -52,13 +54,14 @@ function newFolder(e){
         return;
     }
     //console.log(folderName);
-    if(folders.insert(folderName, folderPath)){
+    let name = folders.insert(folderName, folderPath);
+    if(name){
         alert("Carpeta creada con éxito");
         user.folders.root = folders.root;
         user.folders.size = folders.size;
 
         //INSERT ACTION IN THE BINNACLE
-        binnacle.insert("Acción: Se creó la carpeta \"" + folderName + "\"\n" + getTime());
+        binnacle.insert("Acción: Se creó la carpeta \"" + name + "\"\n" + getTime());
         user.binnacle.root = binnacle.root;
         
 
@@ -97,6 +100,10 @@ function openGraphFolders(){
 //-----------------------------------------------------------
 //---------------------SHOW GRAPH FILES----------------------
 function openGraphFiles(){
+    if(files.matrixGraph() == null){
+        alert("No se puede crear la matriz por falta de archivos");
+        return;
+    }
     localStorage.setItem('path', JSON.stringify($('#path').val()));
     let windows = window.open("FilesGraph.html", "_blank");
     windows.focus();
@@ -173,14 +180,14 @@ const uploadFile = async (e) => {
         type: form.file.type
     }); */
 
-    files.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
+    let name = files.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
     
     folders.getFolder(path).files.root = files.root;
     user.folders.root = folders.root;
     user.folders.size = folders.size;
 
     //INSERT ACTION IN THE BINNACLE
-    binnacle.insert("Acción: Se creo el archivo \"" + form.file.name +"\"\n" + getTime());
+    binnacle.insert("Acción: Se creo el archivo \"" + name +"\"\n" + getTime());
     user.binnacle.root = binnacle.root;
     
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
@@ -203,5 +210,105 @@ function getTime(){
     timestr += date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
     return "Fecha: " + datestr + "\nHora: " + timestr;
 }
+
+//-----------------------------------------------------------
+//-----------------CONTEXT MENU POR FILES--------------------
+function contextMenu(e, itmname, itmvalue){
+    e.preventDefault();
+
+    let x = e.pageX, y = e.pageY,
+    winwidth = window.innerWidth,
+    winheight = window.innerHeight,
+    cmwidth = menu.offsetWidth,
+    cmheight = menu.offsetHeight;
+
+    x = x > winwidth - cmwidth ? winwidth - cmwidth : x;
+    y = y > winheight - cmheight ? winheight - cmheight : y;
+
+    menu.style.left = `${x}px`;
+    menu.style.top = `${y}px`;
+    menu.style.visibility = "visible";
+
+    $("#adownload").attr('href',itmvalue);
+    $("#adownload").attr('download',itmname);
+    
+    $("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`)
+}
+
+//-----------------------------------------------------------
+//-------------------SHARE CONTEXT MENU----------------------
+function menuShare(e, itmname){
+    e.preventDefault();
+
+    let x = 0, y = 0,
+    winwidth = window.innerWidth,
+    winheight = window.innerHeight,
+    cmwidth = menu.clientWidth,
+    cmheight = menu.clientHeight;
+
+    x = (winwidth/2)-(cmwidth/2)-100;
+    y = (winheight/2)-(cmheight/2)-100;
+
+    $("#txtshare").html(`Compartir '${itmname}'`);
+    $("#formshare").attr('onsubmit', `shareFile(event, '${itmname}')`);
+
+    mnshare.style.left = `${x}px`;
+    mnshare.style.top = `${y}px`;
+    mnshare.style.visibility = "visible";
+}
+
+//-----------------------------------------------------------
+//-----------CLOSE SHARE CONTEXT MENU------------------------
+function closeShare(e){
+    e.preventDefault();
+    mnshare.style.visibility = "hidden";
+}
+
+//-----------------------------------------------------------
+//------------------------SHARE FILE-------------------------
+function shareFile(e, itmname){
+    e.preventDefault();
+    if($("#inuser").val() == ''){
+        alert("Debe ingresar un usuario");
+        return;
+    }
+    if($("#inperms").val() == undefined){
+        alert("Debe seleccionar el tipo de permiso");
+        return;
+    }
+    const formData = new FormData(e.target);
+    const form = Object.fromEntries(formData);
+
+    let users = new AvlTree();
+    if(localStorage.getItem('users') != null){
+        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
+    }
+    if(users.getUser(form.inuser) != null){
+        let carnet = form.inuser;
+        let file = files.getFile(itmname);
+        let perms = form.inperms;
+
+        files.insertPerms(carnet,itmname,perms,file.name,file.value,file.type);
+    
+        folders.getFolder($('#path').val()).files.root = files.root;
+        user.folders.root = folders.root;
+        
+        localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+        showFolders();
+        saveUser();
+
+        let shareform = document.getElementById('formshare');
+        shareform.reset();
+        mnshare.style.visibility = "hidden";
+        alert("El archivo se compartió correctamente");
+    }else{
+        alert("El usuario no existe");
+        return;
+    }
+}
+
+window.addEventListener('click', e => {
+    menu.style.visibility = "hidden";
+});
 
 $(document).ready(welcomeUser)

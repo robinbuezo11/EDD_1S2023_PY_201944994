@@ -8,16 +8,21 @@ class NAryTree{
     //-----------------------------------------------------------
     //---------------------INSERT METHOD-------------------------
     insert(folderName, parentFolder){
+        let newname = folderName;
+        let newpath = parentFolder == '/' ? parentFolder+folderName : parentFolder+'/'+folderName;
+        if(this.getFolder(newpath) != null){
+            newname = 'Copia '+folderName;
+        } 
         let parent = this.getFolder(parentFolder);
         if(parent){
-            let newNode = new NAryNode(folderName);
+            let newNode = new NAryNode(newname);
             newNode.id = this.size;
             this.size++;
             parent.children.push(newNode);
-            return true;
+            return newname;
         }else{
             alert("La ruta no existe");
-            return false;
+            return null;
         }
     }
 
@@ -111,21 +116,21 @@ class NAryTree{
             while(file){
                 if(file.type.substring(0,file.type.indexOf("/")) == 'image'){
                     html += `<div class="folder col-2">
-                                <a href="${file.value}" download="${file.name}">
+                                <a oncontextmenu="contextMenu(event, '${file.perm}', '${file.value}')" href="${file.value}" download="${file.name}">
                                     <img src="./imgs/img.png" width="100%"/>
                                 </a>
                                 <p class="h6 text-center">${file.name}</p>
                             </div>`;
                 }else if(file.type == 'application/pdf'){
                     html += `<div class="folder col-2">
-                                <a href="${file.value}" download="${file.name}">
+                                <a oncontextmenu="contextMenu(event, '${file.perm}', '${file.value}')" href="${file.value}" download="${file.name}">
                                     <img src="./imgs/pdf.png" width="100%"/>
                                 </a>
                                 <p class="h6 text-center">${file.name}</p>
                             </div>`;
                 }else if(file.type == 'text/plain'){
                     html += `<div class="folder col-2">
-                                <a href="${file.value}" download="${file.name}.txt">
+                                <a oncontextmenu="contextMenu(event, '${file.perm}', '${file.value}')" href="${file.value}" download="${file.name}.txt">
                                     <img src="./imgs/txt.png" width="100%"/>
                                 </a>
                                 <p class="h6 text-center">${file.name}</p>

@@ -7,8 +7,23 @@ class SparseMatrix{
     //-----------------------------------------------------------
     //----------------------INSERT FILE--------------------------
     insert(carnet, file, perm, name, value, type){
+        let newfile = file, newname = name;
         this.#carnetHeader(carnet);
-        this.#fileHeader(file,name,value,type);
+        let t = this.#fileHeader(newfile,newname,value,type);
+        newfile = t.file;
+        newname = t.name;
+
+        const node = new MatrixNode(carnet,newfile,perm,newname,value,type);
+
+        this.#addCarnet(node, carnet);
+        this.#addFile(node, newfile);
+        return newfile;
+    }
+
+    //-----------------------------------------------------------
+    //------------------------ADD PERMS--------------------------
+    insertPerms(carnet, file, perm, name, value, type){
+        this.#carnetHeader(carnet);
 
         const node = new MatrixNode(carnet,file,perm,name,value,type);
 
@@ -51,6 +66,7 @@ class SparseMatrix{
         if(this.root.down == null){
             this.root.down = curr;
             curr.up = this.root;
+            return {file,name};
         }else{
             let temp = this.root;
     
@@ -61,12 +77,17 @@ class SparseMatrix{
             if(temp.down == null){
                 temp.down = curr;
                 curr.up = temp;
+                return {file,name};
             }else if(temp.down != null && temp.down.perm.toLowerCase() != file.toLowerCase()){
                 let aux = temp.down;
                 temp.down = curr;
                 curr.up = temp;
                 curr.down = aux;
                 aux.up = curr;
+                return {file,name};
+            }else if(temp.down != null && temp.down.perm.toLowerCase() == file.toLowerCase()){
+                let ext = file.substring(file.lastIndexOf('.') + 1);
+                return this.#fileHeader(name + '-copia.' + ext,name + '-copia',value,type);
             }
         }
     }
@@ -128,8 +149,28 @@ class SparseMatrix{
     }
 
     //-----------------------------------------------------------
+    //--------------------------GET FILE-------------------------
+    getFile(filename){
+        if(this.root.down == null){
+            return null;
+        }else{
+            let current = this.root.down;
+            while(current){
+                if(current.perm == filename){
+                    return current;
+                }
+                current = current.down;
+            }
+            return null;
+        }
+    }
+
+    //-----------------------------------------------------------
     //----------------------GRAPH MATRIX-------------------------
     matrixGraph(){
+        if(this.root.down == null){
+            return null;
+        }
         let code = " \nnode[nodesep=\"0.8\", ranksep=\"0.6\"]; \n";
 		code +="M0[ label = \"ARCHIVOS\" width = 1.5 shape = \"square\" style = \"filled\" fillcolor =\"lightsalmon\" group=\"0\"]; \n";
         code += this.#headersGraph()
@@ -157,11 +198,11 @@ class SparseMatrix{
         conn += 'M0 ->';
         try { temp = this.root.down } catch (error) { temp = null; console.log("GRAPH"); }
         while(temp != null){
-            nodes += "Y" + temp.perm.replace(".","") + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="mediumspringgreen" group="0"];\n`
+            nodes += "Y" + temp.perm.replace(".","").replace("-","") + `[label="${temp.perm}" width = 1.5 shape ="square" style="filled" fillcolor="mediumspringgreen" group="0"];\n`
             if(temp.down != null){
-                conn += "Y" + temp.perm.replace(".","") + "->";
+                conn += "Y" + temp.perm.replace(".","").replace("-","") + "->";
             }else{
-                conn += "Y" + temp.perm.replace(".","") + `[dir="both"];\n`;
+                conn += "Y" + temp.perm.replace(".","").replace("-","") + `[dir="both"];\n`;
             }
             temp = temp.down;
         }
@@ -178,14 +219,14 @@ class SparseMatrix{
         let tcarnet = null;
         while(tfile != null){
             try { tcarnet = tfile.right } catch (error) { tcarnet = null; console.log("errorFile2"); } 
-            conn += `Y${tcarnet.file.replace(".","")} -> `
+            conn += `Y${tcarnet.file.replace(".","").replace("-","")} -> `
             while(tcarnet != null){
-                nodes += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet}[label="${tcarnet.perm}" width=1.5 shape="square" style="filled" fillcolor="lightyellow" group="${tcarnet.carnet}"];\n`
-                rank += `{rank=same; Y${tcarnet.file.replace(".","")}; S${tcarnet.file.replace(".","")}_${tcarnet.carnet};}\n`;
+                nodes += `S${tcarnet.file.replace(".","").replace("-","")}_${tcarnet.carnet}[label="${tcarnet.perm}" width=1.5 shape="square" style="filled" fillcolor="lightyellow" group="${tcarnet.carnet}"];\n`
+                rank += `{rank=same; Y${tcarnet.file.replace(".","").replace("-","")}; S${tcarnet.file.replace(".","").replace("-","")}_${tcarnet.carnet};}\n`;
                 if(tcarnet.right != null){
-                    conn += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet} ->`;
+                    conn += `S${tcarnet.file.replace(".","").replace("-","")}_${tcarnet.carnet} ->`;
                 }else{
-                    conn += `S${tcarnet.file.replace(".","")}_${tcarnet.carnet} [dir="both"]; \n`;
+                    conn += `S${tcarnet.file.replace(".","").replace("-","")}_${tcarnet.carnet} [dir="both"]; \n`;
                 }
                 tcarnet = tcarnet.right;
             }
@@ -199,9 +240,9 @@ class SparseMatrix{
             conn += `X${tfile.carnet} -> `
             while(tfile != null){
                 if(tfile.down != null){
-                    conn += `S${tfile.file.replace(".","")}_${tfile.carnet} ->`;
+                    conn += `S${tfile.file.replace(".","").replace("-","")}_${tfile.carnet} ->`;
                 }else{
-                    conn += `S${tfile.file.replace(".","")}_${tfile.carnet} [dir="both"]; \n`;
+                    conn += `S${tfile.file.replace(".","").replace("-","")}_${tfile.carnet} [dir="both"]; \n`;
                 }
                 tfile = tfile.down;
             }
