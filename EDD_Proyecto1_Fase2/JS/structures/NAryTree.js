@@ -30,8 +30,12 @@ class NAryTree{
     //---------------------DELETE METHOD-------------------------
     delete(folderName){
         if(folderName == this.root.name){
-            alert("No se puede eliminar la carpeta raíz");
-            return false;
+            this.root = new NAryNode('/');
+            this.root.id = 0;
+            this.size = 1;
+            return true;
+            /* alert("No se puede eliminar la carpeta raíz");
+            return false; */
         }else{
             let parent = folderName.substring(0, folderName.lastIndexOf('/'));
             let folder = folderName.substring(folderName.lastIndexOf('/') + 1);
