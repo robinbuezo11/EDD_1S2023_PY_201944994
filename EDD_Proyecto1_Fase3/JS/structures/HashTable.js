@@ -87,4 +87,26 @@ class HashTable{
         }
         return true;
     }
+
+    //-----------------------------------------------------------
+    //-----------------------GET USERS HTML----------------------
+    getUsersHtml(){
+        if(this.size == 0){
+            return "";
+        }
+        let row = "";
+        this.table.forEach(user => {
+            if(user){
+                row +=`
+                    <tr>
+                        <th>${user.carnet}</th>
+                        <td>${user.firstname} ${user.lastname}</td>
+                        <td>${user.pass}</td>
+                        <!--<td><button class="btn btn-sm" id="binnacle" onclick="showBinnacle(${user.carnet})">Bitácora</button></td>-->
+                    </tr>
+                `;
+            }
+        });
+        return row;
+    }
 }

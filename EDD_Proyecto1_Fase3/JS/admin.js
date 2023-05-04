@@ -1,4 +1,5 @@
-let users = new AvlTree();
+let users = new HashTable();    // Now users is a HashTable object
+let usersAvl = new AvlTree();   // Now AvlTree is usersAvl
 
 //-----------------------------------------------------------
 //-----------------------USERS UPLOAD------------------------
@@ -20,28 +21,32 @@ function loadUsersForm(e){
             //INSERT USERS IN THE TREE
             for(let i=0; i<usersArray.length; i++){
                 let name = usersArray[i].nombre.trim().split(" ");
-                users.Insert(new User(name[0], name[1], usersArray[i].carnet, usersArray[i].password));
+                usersAvl.Insert(new User(name[0], name[1], usersArray[i].carnet, usersArray[i].password));
             }
 
             //SAVE TREE IN LOCAL STORAGE
-            localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
+            //localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
 
-            //INSERT USERS IN THE TABLE
             /* $('#usersTable tbody').html(
-                usersArray.map((user, index) => {
-                    return(`
-                        <tr>
-                            <td>${user.carnet}</td>
-                            <td>${user.nombre}</td>
-                            <td>${user.password}</td>
-                        </tr>
-                    `);
-                }).join('') 
-            ); */
-            $('#usersTable tbody').html(
                 users.inOrder()
             );
-            $('#routes').val('inOrder');
+            $('#routes').val('inOrder'); */
+
+            //----------------------NEW CODE PHASE 3----------------------
+
+            let us = usersAvl.getUsersInOrder();
+            for(let i=0; i<us.length; i++){
+                let pass = CryptoJS.AES.encrypt(us[i].pass, 'P@$$w0rd').toString();
+                us[i].pass = pass;
+                users.insert(us[i]);
+            }
+
+            //SAVE HASH TABLE IN LOCAL STORAGE
+            localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
+
+            $('#usersTable tbody').html(
+                users.getUsersHtml()
+            );
 
             alert("¡Usuarios cargados correctamente!");
         }
@@ -58,12 +63,14 @@ function loadLocalUsers(){
     if (localStorage.getItem('users') == null) {
         return;
     }
-    users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
+    users.table = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).table;
+    users.size = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).size;
+    users.capacity = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).capacity;
 }
 
 //-----------------------------------------------------------
 //----------------------GENERATE ROUTES----------------------
-function showUsersForm(e){
+/* function showUsersForm(e){
     loadLocalUsers();
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -90,25 +97,25 @@ function showUsersForm(e){
                 break;
             }
     }
-}
+} */
 
 //-----------------------------------------------------------
 //----------------------SHOW GRAPH---------------------------
-function openGraph(){
+/* function openGraph(){
     let windows = window.open("UserGraph.html", "_blank");
     windows.focus();
-}
+} */
 
 //-----------------------------------------------------------
 //----------------------SHOW BINNACLE---------------------------
-function showBinnacle(carnet){
+/* function showBinnacle(carnet){
     let user = users.getUser(carnet);
     if(user){
         localStorage.setItem('userbin', JSON.stringify(JSON.decycle(user)));
         let windows = window.open("BinnacleGraph.html", "_blank");
         windows.focus();
     }
-}
+} */
 
 //-----------------------------------------------------------
 //----------------------CLEAR USERS--------------------------
@@ -117,13 +124,17 @@ function clearUsers(){
         if (localStorage.getItem('users') != null) {
             localStorage.removeItem('users');
         }
-        if(users.root != null){
-            users = new AvlTree();
+        if(users.size > 0){
+            //users = new AvlTree();
+            users = new HashTable();
+        }
+        if(usersAvl.root != null){
+            usersAvl = new AvlTree();
         }
         $('#usersTable tbody').html('');
 
-        let routesform = document.getElementById('routesform');
-        routesform.reset()
+/*         let routesform = document.getElementById('routesform');
+        routesform.reset() */
     }
 }
 
@@ -131,11 +142,12 @@ function clearUsers(){
 //-----------------SHOW LOCAL USERS IN THE TABLE-------------
 function showLocalUsers(){
     loadLocalUsers();
-    if(users.root != null){
+    if(users.size > 0){
         $('#usersTable tbody').html(
-            users.inOrder()
+            //users.inOrder()
+            users.getUsersHtml()
         );
-        $('#routes').val('inOrder');
+        //$('#routes').val('inOrder');
     }
 }
 

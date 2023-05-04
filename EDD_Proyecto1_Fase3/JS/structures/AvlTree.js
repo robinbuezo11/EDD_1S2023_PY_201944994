@@ -264,6 +264,25 @@ class AvlTree{
         }
         return row;
     } */
+
+    getUsersInOrder(){
+        let users = [];
+        if(this.root == null){
+            return null;
+        }
+        return this.#getUsersInOrder(this.root, users);
+    }
+    #getUsersInOrder(current, _users){
+        let users = _users;
+        if(current.left != null){
+            users = this.#getUsersInOrder(current.left, users);
+        }
+        users.push(current.user);
+        if(current.right != null){
+            users = this.#getUsersInOrder(current.right, users);
+        }
+        return users;
+    }
 }
 
 // module.exports = AvlTree;

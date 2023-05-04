@@ -11,17 +11,19 @@
     <body class="bg-dark">
         <div class="container">
             <div class="row">
-                <div class="col-8">
+                <div class="col-7">
                     <h1 class="fw-bold pt-5">Dashboard Administrador</h1>
                 </div>
-                <div class="col-2"></div>
+                <div class="col-3 pe-5">
+                    <button id="messages" class="btn mt-5 w-100 btn-light" >Reporte de Mensajes</button> 
+                </div>
                 <div class="col-2">
-                    <button id="logout" class="btn mt-5 w-100 btn-danger" onclick="logoutAdmin()">Cerrar Sesión</button>      
+                    <button id="logout" class="btn mt-5 w-100 btn-light" onclick="logoutAdmin()">Cerrar Sesión</button>      
                 </div>
             </div>
             <hr class="mb-5">
             <div class="row">
-                <div class="col-4">
+                <!-- <div class="col-3">
                     <h5>Acciones</h5>
                     <hr>
                     <form class="form pb-3" onsubmit="loadUsersForm(event)">
@@ -32,51 +34,86 @@
                     </form>
                     <h5 class="pt-5">Reportes</h5>
                     <hr>
-                    <a class="btn w-100 btn-light" onclick="openGraph()">Árbol de Estudiantes</a>
+                    <a class="btn w-100 btn-light" onclick="openGraph()">Árbol de Estudiantes</a> -->
                 </div>
-                <div class="col-8">
-                    <h5>Estudiantes</h5>
-                    <hr>
-                    <form id="routesform" class="form" onsubmit="showUsersForm(event)">
-                        <div class="row">
-                            <div class="col-8">
-                                <select id="routes" name="routes" class="form-select">
-                                    <option selected disabled>Seleccionar Recorrido</option>
-                                    <option value="inOrder">InOrder</option>
-                                    <option value="preOrder">PreOrder</option>
-                                    <option value="postOrder">PostOrder</option>
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <button class="btn w-100 btn-light btn-sm">Mostrar</button>    
-                            </div>
-                            <div class="col-2">
-                                <button id="danger" class="btn w-100 btn-light btn-sm" onclick="clearUsers()">Limpiar</button>    
-                            </div>
-                        </div>
-                    </form>
-                    
-                    <div id="usersTable" class="pt-3">
-                        <table class="table text-light">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Carnet</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Contraseña</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-2">
+                        <h5>Estudiantes</h5>
                     </div>
+                    <div class="col-8">
+                        <form id="loadUsers" class="form" onsubmit="loadUsersForm(event)">
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col-4"><input type="file" accept=".json" id="inputFile" name="inputFile" class="form-control form-control-sm"></div>
+                                <div class="col-3"><button type="submit" class="btn btn-sm w-100 btn-light">Cargar Alumnos</button></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <button id="danger" class="btn w-100 btn-light btn-sm" onclick="clearUsers()">Limpiar Alumnos</button> 
+                    </div>
+                </div>
+                <!--<hr>
+                <form id="routesform" class="form" onsubmit="showUsersForm(event)">
+                    <div class="row">
+                        <div class="col-8">
+                            <select id="routes" name="routes" class="form-select">
+                                <option selected disabled>Seleccionar Recorrido</option>
+                                <option value="inOrder">InOrder</option>
+                                <option value="preOrder">PreOrder</option>
+                                <option value="postOrder">PostOrder</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn w-100 btn-light btn-sm">Mostrar</button>    
+                        </div>
+                        <div class="col-2">
+                            <button id="danger" class="btn w-100 btn-light btn-sm" onclick="clearUsers()">Limpiar</button>    
+                        </div>
+                    </div>
+                </form> -->
+                
+                <div id="usersTable" class="pt-3">
+                    <table class="table text-light">
+                        <thead class="bg-secondary">
+                            <tr>
+                                <th scope="col">Carnet</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Contraseña</th>
+                                <!-- <th scope="col">Acciones</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <h5>Permisos</h5>
+                    </div>
+                </div>
+                <div id="permissionsTable" class="pt-3">
+                    <table class="table text-light">
+                        <thead class="bg-secondary">
+                            <tr>
+                                <th scope="col">Propietario</th>
+                                <th scope="col">Destino</th>
+                                <th scope="col">Ubicación</th>
+                                <th scope="col">Archivo</th>
+                                <th scope="col">Permisos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
         <!-- JQuery & Bootstrap -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"</script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 
         <!-- Utils -->
         <script src="./JS/libs/cycle.js"></script>
@@ -87,6 +124,7 @@
         <script src="./JS/structures/ListNode.js"></script>
         <script src="./JS/structures/CircularList.js"></script>
         <script src="./JS/structures/User.js"></script>
+        <script src="./JS/structures/HashTable.js"></script>
         <script src="./JS/structures/AvlNode.js"></script>
         <script src="./JS/structures/AvlTree.js"></script>
         <script src="./JS/admin.js"></script>

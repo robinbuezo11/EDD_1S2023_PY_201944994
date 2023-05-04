@@ -140,6 +140,12 @@ h5{
     font-size: 130%;
 }
 
+#messages{
+	background-color: rgb(255, 120, 15);
+    color: white;
+    font-size: 130%;
+}
+
 hr{
 	border: 2px solid rgb(255, 120, 0);
 }
@@ -162,4 +168,8 @@ hr{
 
 .btn-sm{
 	font-size: 100%;
+}
+
+#inputFile{
+	margin-top: 1px;
 }
