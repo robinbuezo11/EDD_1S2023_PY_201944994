@@ -11,13 +11,13 @@ class HashTable{
     insert(user){
         let index = this.#calculateIndex(user.carnet);
         if(index < this.capacity){
-            if(!this.table[index]){
+            if(this.table[index] == null){
                 this.table[index] = user;
                 this.size++;
             }else{
                 let count = 0;
                 index = this.#recalculateIndex(user.carnet, count);
-                while(this.table[index]){
+                while(this.table[index] != null){
                     count++;
                     index = this.#recalculateIndex(user.carnet, count);
                 }
