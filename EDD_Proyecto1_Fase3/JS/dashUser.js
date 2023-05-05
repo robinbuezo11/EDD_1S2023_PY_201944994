@@ -4,12 +4,15 @@ let files = new SparseMatrix();
 let binnacle = new CircularList();
 let menu = document.querySelector(".wrapper");
 let mnshare = document.querySelector(".share");
+let isLoged = false;
 
 //-----------------------------------------------------------
 //--------------------INITIAL FUNCTION-----------------------
 function welcomeUser(){
     if(localStorage.getItem('user') != null){
         user = JSON.retrocycle(JSON.parse(localStorage.getItem('user')));
+        localStorage.removeItem('user');
+        isLoged = true;
         folders.root = user.folders.root;
         folders.size = user.folders.size;
         binnacle.root = user.binnacle.root;
@@ -26,7 +29,8 @@ function welcomeUser(){
 //-----------------------SHOW FOLDERS------------------------
 function showFolders(){
     let folderPath = $('#path').val();
-    files.root = folders.getFolder(folderPath).files.root;
+    let {node:localfolder} = folders.getFolder(folderPath);
+    files.root = localfolder.files.root;
     $('#folders').html(folders.getHtml(folderPath));
 }
 
@@ -35,10 +39,11 @@ function showFolders(){
 function logoutUser(){
     if(confirm("¿Está seguro que desea cerrar sesión?")){
         saveUser();
-        localStorage.removeItem('user');
+        //localStorage.removeItem('user');
         if(localStorage.getItem('path') != null){
             localStorage.removeItem('path');
         }
+        isLoged = false;
         window.location.href = "index.html";
     }
 }
@@ -65,8 +70,7 @@ function newFolder(e){
         user.binnacle.root = binnacle.root;
         
 
-        localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
-        //console.log(folders);
+        //localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
         showFolders();
         saveUser();
     }
@@ -94,6 +98,7 @@ function backRoot(){
 //---------------------SHOW GRAPH FOLDERS--------------------
 function openGraphFolders(){
     let windows = window.open("FoldersGraph.html", "_blank");
+    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     windows.focus();
 }
 
@@ -105,6 +110,7 @@ function openGraphFiles(){
         return;
     }
     localStorage.setItem('path', JSON.stringify($('#path').val()));
+    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     let windows = window.open("FilesGraph.html", "_blank");
     windows.focus();
 }
@@ -118,12 +124,23 @@ function deleteFolder(){
         if(folders.delete(folder)){
             user.folders.root = folders.root;
             user.folders.size = folders.size;
+
+            if(localStorage.getItem('shares') != null){
+                let shares = JSON.retrocycle(JSON.parse(localStorage.getItem('shares')));
+                let temp = [];
+                for(let i = 0; i < shares.length; i++){
+                    if(!(shares[i].location.startsWith(folder) && shares[i].owner == user.carnet)){
+                        temp.push(shares[i]);
+                    }
+                }
+                localStorage.setItem('shares', JSON.stringify(JSON.decycle(temp)));
+            }           
             
             //INSERT ACTION IN THE BINNACLE
             binnacle.insert("Acción: Se eliminó la carpeta \"" + folder.substring(folder.lastIndexOf+1) + "\"\n" + getTime());
             user.binnacle.root = binnacle.root;
             
-            localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+            //localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
             alert("Carpeta eliminada con éxito");
             if(folder.lastIndexOf('/') == 0){
                 $('#path').val('/');
@@ -137,11 +154,14 @@ function deleteFolder(){
 }
 
 //-----------------------------------------------------------
-//----------------SAVE USER IN AVLTREE-----------------------
+//----------------SAVE USER IN HASH TABLE--------------------
 function saveUser(){
-    let users = new AvlTree();
+    let users = new HashTable();
     if(localStorage.getItem('users') != null){
-        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
+        let localUsers = JSON.retrocycle(JSON.parse(localStorage.getItem('users')));
+        users.table = localUsers.table;
+        users.size = localUsers.size;
+        users.capacity = localUsers.capacity;
     }
     if(users.setUser(user)){
         localStorage.setItem('users', JSON.stringify(JSON.decycle(users)));
@@ -182,7 +202,7 @@ const uploadFile = async (e) => {
 
     let name = files.insert(user.carnet,form.file.name,'r-w',form.file.name.substring(0, form.file.name.lastIndexOf('.')),parseBase64,form.file.type);
     
-    folders.getFolder(path).files.root = files.root;
+    folders.getFolder(path).node.files.root = files.root;
     user.folders.root = folders.root;
     user.folders.size = folders.size;
 
@@ -190,7 +210,7 @@ const uploadFile = async (e) => {
     binnacle.insert("Acción: Se creo el archivo \"" + name +"\"\n" + getTime());
     user.binnacle.root = binnacle.root;
     
-    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+    //localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     showFolders();
     saveUser();
 
@@ -279,9 +299,12 @@ function shareFile(e, itmname){
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
 
-    let users = new AvlTree();
+    let users = new HashTable();
     if(localStorage.getItem('users') != null){
-        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
+        let localUsers = JSON.retrocycle(JSON.parse(localStorage.getItem('users')));
+        users.table = localUsers.table;
+        users.size = localUsers.size;
+        users.capacity = localUsers.capacity;
     }
     if(users.getUser(form.inuser) != null){
         let carnet = form.inuser;
@@ -290,12 +313,19 @@ function shareFile(e, itmname){
 
         files.insertPerms(carnet,itmname,perms,file.name,file.value,file.type);
     
-        folders.getFolder($('#path').val()).files.root = files.root;
+        folders.getFolder($('#path').val()).node.files.root = files.root;
         user.folders.root = folders.root;
         
-        localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+        //localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
         showFolders();
         saveUser();
+
+        let shares = []
+        if(localStorage.getItem('shares') != null){
+            shares = JSON.retrocycle(JSON.parse(localStorage.getItem('shares')));
+        }
+        shares.push({owner: user.carnet, user: carnet, location: $('#path').val(), file: file, perms: perms});
+        localStorage.setItem('shares', JSON.stringify(JSON.decycle(shares)));
 
         let shareform = document.getElementById('formshare');
         shareform.reset();
@@ -309,6 +339,12 @@ function shareFile(e, itmname){
 
 window.addEventListener('click', e => {
     menu.style.visibility = "hidden";
+});
+
+window.addEventListener("beforeunload", function (e) {
+    if(isLoged){
+        localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+    }
 });
 
 $(document).ready(welcomeUser)

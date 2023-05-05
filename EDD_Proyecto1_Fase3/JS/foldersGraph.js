@@ -2,6 +2,7 @@ function showGraph(){
     if(localStorage.getItem("user") != null){
         let folders = new NAryTree();
         folders.root = JSON.retrocycle(JSON.parse(localStorage.getItem("user"))).folders.root;
+        localStorage.removeItem("user");
         let url = 'https://quickchart.io/graphviz?graph=';
         let body = `digraph G {${folders.treeGraph()}}`
         $("#graph").attr("src", url + body);

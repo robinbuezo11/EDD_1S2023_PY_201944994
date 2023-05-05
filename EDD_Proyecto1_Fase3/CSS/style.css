@@ -173,3 +173,9 @@ hr{
 #inputFile{
 	margin-top: 1px;
 }
+
+#resource{
+	color: #ffffff;
+	font-style: italic;
+	text-decoration: underline;
+}

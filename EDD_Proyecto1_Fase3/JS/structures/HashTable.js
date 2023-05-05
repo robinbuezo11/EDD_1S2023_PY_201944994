@@ -109,4 +109,60 @@ class HashTable{
         });
         return row;
     }
+
+    //-----------------------------------------------------------
+    //-------------------GET USER BY CARNET----------------------
+    getUser(carnet){
+        let index = this.#calculateIndex(carnet);
+        if(index < this.capacity){
+            try{
+                if(this.table[index].carnet == carnet){
+                    return this.table[index];
+                }else{
+                    let count = 0;
+                    index = this.#recalculateIndex(carnet, count);
+                    while(this.table[index] != null && this.table[index].carnet != carnet){
+                        count++;
+                        index = this.#recalculateIndex(carnet, count);
+                    }
+                    return this.table[index];
+                }
+            }catch(error){
+                console.log(error);
+                return null;
+            }
+        }else{
+            return null;
+        }
+    } 
+
+    //-----------------------------------------------------------
+    //-------------------------SET USER--------------------------
+    setUser(user){
+        let index = this.#calculateIndex(user.carnet);
+        if(index < this.capacity){
+            try{
+                if(this.table[index].carnet == user.carnet){
+                    this.table[index] = user;
+                    return true;
+                }else{
+                    let count = 0;
+                    index = this.#recalculateIndex(user.carnet, count);
+                    while(this.table[index] != null){
+                        count++;
+                        index = this.#recalculateIndex(user.carnet, count);
+                        if(this.table[index].carnet == user.carnet){
+                            this.table[index] = user;
+                            return true;
+                        }
+                    }
+                }
+            }catch(error){
+                console.log(error);
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 }

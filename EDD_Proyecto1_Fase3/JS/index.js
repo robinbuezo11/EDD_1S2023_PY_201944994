@@ -21,10 +21,23 @@ function login(e){
 
     //---------------------VERIFY USER----------------------
     if(localStorage.getItem('users') != null){
-        let users = new AvlTree();
-        users.root = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).root;
+        //let users = new AvlTree();
+        let users = new HashTable();
+        let localusers = JSON.retrocycle(JSON.parse(localStorage.getItem('users')));
+        users.table = localusers.table;
+        users.size = localusers.size;
+        users.capacity = localusers.capacity;
+
         //-----------------SEARCH USER----------------------
-        userlogin = users.userLogin(user, pass);
+        let usertemp = users.getUser(user);
+        let userlogin = null;
+        if(usertemp){
+            let passtemp = CryptoJS.AES.decrypt(usertemp.pass, 'P@$$w0rd').toString(CryptoJS.enc.Utf8);
+            if(passtemp == pass){
+                userlogin = usertemp;
+            }
+        }
+
         if(userlogin){
             //console.log(userlogin);
             //---------------SAVE USER----------------------

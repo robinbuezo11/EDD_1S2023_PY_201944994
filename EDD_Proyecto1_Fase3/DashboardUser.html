@@ -29,7 +29,7 @@
                 <form class="form" onsubmit="newFolder(event)">
                     <input type="text" id="folderName" name="folderName" class="form-control" placeholder="Nombre de Carpeta">
                     <div class="form-group mt-4">
-                        <button type="submit" class="btn btn-light w-100">Crear Carpeta</button>
+                        <button type="submit" class="btn btn-sm btn-light w-100">Crear Carpeta</button>
                     </div>
                 </form>
                 <h5 class="pt-5">Nuevo Archivo</h5>
@@ -38,7 +38,7 @@
                     <!-- <input type="text" id="fileName" name="fileName" class="form-control mb-4" placeholder="Nombre de Archivos"/> -->
                     <input type="file" id="file" name="file" class="form-control" accept="application/pdf, .txt, image/*">
                     <div class="form-group mt-4">
-                        <button type="submit" class="btn btn-light w-100">Subir Archivo</button>
+                        <button type="submit" class="btn btn-sm btn-light w-100">Subir Archivo</button>
                     </div>
                 </form>
             </div>
@@ -69,15 +69,17 @@
                 </div>
                 <div class="row mt-5">
                     <hr>
-                    <div class="col-1"></div>
-                    <div class="col-4">
-                        <button type="button" onclick="openGraphFolders()" class="btn btn-light w-100">Reporte de Carpetas</button>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-4">
-                        <button type="button" onclick="openGraphFiles()" class="btn btn-light w-100">Reporte de Archivos</button>
+                    <div class="col-3">
+                        <button id="shareds" type="button" class="btn btn-sm btn-light w-100">Conmpartidos Conmigo</button>
                     </div>
                     <div class="col-1"></div>
+                    <div class="col-3">
+                        <button type="button" onclick="openGraphFolders()" class="btn btn-sm btn-light w-100">Reporte de Carpetas</button>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <button type="button" onclick="openGraphFiles()" class="btn btn-sm btn-light w-100">Reporte de Archivos</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -151,6 +153,7 @@
         <script src="./JS/structures/ListNode.js"></script>
         <script src="./JS/structures/CircularList.js"></script>
         <script src="./JS/structures/User.js"></script>
+        <script src="./JS/structures/HashTable.js"></script>
         <script src="./JS/structures/AvlNode.js"></script>
         <script src="./JS/structures/AvlTree.js"></script>
         <script src="./JS/dashUser.js"></script>

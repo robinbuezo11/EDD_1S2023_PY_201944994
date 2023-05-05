@@ -1,6 +1,6 @@
 class NAryTree{
     constructor(){
-        this.root = new NAryNode('/');
+        this.root = new NAryNode('/', 1);
         this.root.id = 0;
         this.size = 1;
     }
@@ -13,9 +13,9 @@ class NAryTree{
         if(this.getFolder(newpath) != null){
             newname = 'Copia '+folderName;
         } 
-        let parent = this.getFolder(parentFolder);
+        let {node:parent, weight} = this.getFolder(parentFolder);
         if(parent){
-            let newNode = new NAryNode(newname);
+            let newNode = new NAryNode(newname, weight);
             newNode.id = this.size;
             this.size++;
             parent.children.push(newNode);
@@ -30,7 +30,7 @@ class NAryTree{
     //---------------------DELETE METHOD-------------------------
     delete(folderName){
         if(folderName == this.root.name){
-            this.root = new NAryNode('/');
+            this.root = new NAryNode('/', 1);
             this.root.id = 0;
             this.size = 1;
             return true;
@@ -38,9 +38,10 @@ class NAryTree{
             return false; */
         }else{
             let parent = folderName.substring(0, folderName.lastIndexOf('/'));
+            if(parent == '') parent = '/';
             let folder = folderName.substring(folderName.lastIndexOf('/') + 1);
-            let parentNode = this.getFolder(parent);
-            if(parentNode){
+            let {node:parentNode} = this.getFolder(parent);
+            if(parentNode != null){
                 let index = parentNode.children.findIndex(child => child.name == folder);
                 if(index != -1){
                     parentNode.children.splice(index, 1);
@@ -59,8 +60,9 @@ class NAryTree{
     //-----------------------------------------------------------
     //---------------------GET FOLDER METHOD---------------------
     getFolder(folderName){
+        let weight = 2;
         if(folderName == this.root.name){
-            return this.root;
+            return {node:this.root, weight:weight};
         }else{
             let temp = this.root;
             let folders = folderName.split('/');
@@ -73,8 +75,9 @@ class NAryTree{
                     return null;
                 }
                 temp = folder;
+                weight++;
             }
-            return temp;
+            return {node:folder, weight:weight};
         }
     }
 
@@ -94,17 +97,18 @@ class NAryTree{
                 nodes += `S_${node.id}[label="${node.name}"];\n`;
                 node.children.forEach(child => {
                     queue.push(child);
-                    connections += `S_${node.id} -> S_${child.id};\n`;
+                    connections += `S_${node.id} -> S_${child.id} [label=${node.weight}]\n`;
                 });
             }
         }
-        return `node[shape="record"];\n${nodes}\n${connections}`;
+        /* sep="+10,20"; \noverlap=scalexy;  */
+        return `overlap=scalexy \nlayout=neato; \nedge[dir=none];\n` + nodes + '\n' + connections;
     }
 
     //-----------------------------------------------------------
     //---------------------METHOD TO GET HTML--------------------
     getHtml(folder){
-        let node = this.getFolder(folder);
+        let {node} = this.getFolder(folder);
         //console.log(node);
         let html = "";
         //---------------------PRINT FOLDERS---------------------

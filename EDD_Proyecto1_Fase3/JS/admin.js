@@ -63,9 +63,49 @@ function loadLocalUsers(){
     if (localStorage.getItem('users') == null) {
         return;
     }
-    users.table = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).table;
-    users.size = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).size;
-    users.capacity = JSON.retrocycle(JSON.parse(localStorage.getItem('users'))).capacity;
+    let localusers = JSON.retrocycle(JSON.parse(localStorage.getItem('users')));
+    users.table = localusers.table;
+    users.size = localusers.size;
+    users.capacity = localusers.capacity;
+}
+
+function loadLocalShares(){
+    if (localStorage.getItem('shares') == null) {
+        return '';
+    }
+    let localshares = JSON.retrocycle(JSON.parse(localStorage.getItem('shares')));
+    let html = '';
+    localshares.forEach(share => {
+        let download = share.file.type == 'text/plain' ? share.file.name + '.txt' : share.file.name;
+        let name = '';
+        switch(share.file.type){
+            case 'text/plain':
+                name = share.file.name + '.txt';
+                break;
+            case 'application/pdf':
+                name = share.file.name + '.pdf';
+                break;
+            case 'image/png':
+                name = share.file.name + '.png';
+                break;
+            case 'image/jpeg':
+                name = share.file.name + '.jpg';
+                break;
+        }
+
+        html += `<tr>
+                    <td>${share.owner}</td>
+                    <td>${share.user}</td>
+                    <td>${share.location}</td>
+                    <td>
+                        <a id="resource" href="${share.file.value}" download="${download}">
+                            ${name}
+                        </a>
+                    </td>
+                    <td>${share.perms}</td>
+                </tr>`;
+    });
+    return html;
 }
 
 //-----------------------------------------------------------
@@ -121,6 +161,8 @@ function loadLocalUsers(){
 //----------------------CLEAR USERS--------------------------
 function clearUsers(){
     if(confirm("¿Está seguro de eliminar todos los usuarios?")){
+        
+        //CLEAR USERS
         if (localStorage.getItem('users') != null) {
             localStorage.removeItem('users');
         }
@@ -133,6 +175,12 @@ function clearUsers(){
         }
         $('#usersTable tbody').html('');
 
+        //CLEAR SHARES
+        if (localStorage.getItem('shares') != null) {
+            localStorage.removeItem('shares');
+        }
+        $('#sharesTable tbody').html('');
+
 /*         let routesform = document.getElementById('routesform');
         routesform.reset() */
     }
@@ -140,14 +188,19 @@ function clearUsers(){
 
 //-----------------------------------------------------------
 //-----------------SHOW LOCAL USERS IN THE TABLE-------------
-function showLocalUsers(){
+function showLocalResources(){
     loadLocalUsers();
+    let shares = loadLocalShares();
     if(users.size > 0){
         $('#usersTable tbody').html(
             //users.inOrder()
             users.getUsersHtml()
         );
         //$('#routes').val('inOrder');
+    }
+
+    if(shares != ''){
+        $('#sharesTable tbody').html(shares);
     }
 }
 
@@ -162,4 +215,4 @@ function logoutAdmin(){
     }
 }
 
-$(document).ready(showLocalUsers);
+$(document).ready(showLocalResources);
