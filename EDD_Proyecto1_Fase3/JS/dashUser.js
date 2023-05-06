@@ -18,7 +18,6 @@ function welcomeUser(){
         binnacle.root = user.binnacle.root;
         $('#welcomeusr').html('¡Bienvenido ' + user.firstname + ' ' + user.lastname + '!');
         showFolders();
-
     }else{
         alert("No se ha iniciado sesión");
         window.location.href = "index.html";
@@ -232,7 +231,7 @@ function getTime(){
 }
 
 //-----------------------------------------------------------
-//-----------------CONTEXT MENU POR FILES--------------------
+//-----------------CONTEXT MENU FILES--------------------
 function contextMenu(e, itmname, itmvalue){
     e.preventDefault();
 
@@ -252,7 +251,7 @@ function contextMenu(e, itmname, itmvalue){
     $("#adownload").attr('href',itmvalue);
     $("#adownload").attr('download',itmname);
     
-    $("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`)
+    //$("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`)
 }
 
 //-----------------------------------------------------------
@@ -335,6 +334,14 @@ function shareFile(e, itmname){
         alert("El usuario no existe");
         return;
     }
+}
+
+//-----------------------------------------------------------
+//----------------------OPEN SHAREDS-------------------------
+function openSharedFolders(){
+    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+    let win = window.open('sharedFolders.html', '_blank');
+    win.focus();
 }
 
 window.addEventListener('click', e => {

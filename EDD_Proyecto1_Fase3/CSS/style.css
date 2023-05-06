@@ -13,6 +13,18 @@ span{
 	box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
 }
+.wrappershare{
+	position: absolute;
+	visibility: hidden;
+	width: 150px;
+	height: 120px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+.wrappershare .menu{
+	padding: 5px 6px;
+}
 .wrapper{
 	position: absolute;
 	visibility: hidden;
