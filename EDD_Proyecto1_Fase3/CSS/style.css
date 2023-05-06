@@ -69,8 +69,18 @@ h6,h4{
 	border-radius: 10px;
 	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
 }
+
 .share .content{
 	padding: 10px 10px;
+}
+.edit{
+	position: absolute;
+	visibility: hidden;
+	width: 1200px;
+	height: 600px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
 }
 
 #eddtitle {

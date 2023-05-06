@@ -4,6 +4,7 @@ let files = new SparseMatrix();
 let binnacle = new CircularList();
 let menu = document.querySelector(".wrapper");
 let mnshare = document.querySelector(".share");
+let mnedit = document.querySelector(".edit");
 let isLoged = false;
 
 //-----------------------------------------------------------
@@ -98,7 +99,7 @@ function backRoot(){
 function openGraphFolders(){
     let windows = window.open("FoldersGraph.html", "_blank");
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
-    windows.focus();
+    //windows.focus();
 }
 
 //-----------------------------------------------------------
@@ -111,7 +112,7 @@ function openGraphFiles(){
     localStorage.setItem('path', JSON.stringify($('#path').val()));
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     let windows = window.open("FilesGraph.html", "_blank");
-    windows.focus();
+    //windows.focus();
 }
 
 
@@ -251,7 +252,99 @@ function contextMenu(e, itmname, itmvalue){
     $("#adownload").attr('href',itmvalue);
     $("#adownload").attr('download',itmname);
     
-    //$("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`)
+    $("#itmedit").attr('onclick',`editText(event,'${itmname}')`);
+    $("#itmshare").attr('onclick',`menuShare(event,'${itmname}')`);
+}
+
+//-----------------------------------------------------------
+//------------------EDIT AREA CONTEXT------------------------
+function editText(e, itmname){
+    e.preventDefault();
+    
+    let file = files.getFile(itmname);
+    let txt = '';
+    if(file != null){
+        if(file.type != 'text/plain'){
+            alert("Solo se pueden editar archivos de texto");
+            return;
+        }
+        //Get the base64 string
+        let txtBase64 = file.value.split(',')[1];
+        //Decode the base64 string
+        let decodedBufer = new Uint8Array(atob(txtBase64).split('').map(char => char.charCodeAt(0))).buffer;
+        let utf8decoder = new TextDecoder("utf-8");
+        
+        txt = utf8decoder.decode(decodedBufer);
+    }else{
+        alert("No se encontró el archivo");
+        return;
+    }
+    let x = 0, y = 0,
+    winwidth = window.innerWidth,
+    winheight = window.innerHeight,
+    editwidth = mnedit.clientWidth,
+    editheight = mnedit.clientHeight;
+
+    x = (winwidth/2)-(editwidth/2);
+    y = (winheight/2)-(editheight/2);
+
+    $("#txtedit").html(`Editar '${itmname}'`);
+    $("#editarea").val(txt);
+    $("#formedit").attr('onsubmit', `editFile(event,'${itmname}')`);
+
+    mnedit.style.left = `${x}px`;
+    mnedit.style.top = `${y}px`;
+    mnedit.style.visibility = "visible";
+}
+
+//-----------------------------------------------------------
+//---------------------EDIT FILE-----------------------------
+function editFile(e, itmname){
+    e.preventDefault();
+
+    let txt = $("#editarea").val();
+    let file = files.getFile(itmname);
+
+    if(file != null){
+        if(file.type != 'text/plain'){
+            alert("Solo se pueden editar archivos de texto");
+        }else{
+            //Parse the text to base64 data url
+            const encoder = new TextEncoder();
+            const encodetxt = encoder.encode(txt);
+            let txtBase64 = btoa(String.fromCharCode.apply(null, encodetxt));
+            let data = "data:text/plain;base64," + txtBase64;
+            //Update the file
+            file.value = data;
+            files.setFile(itmname, file);
+
+            //update files
+            let path = $('#path').val();
+            folders.getFolder(path).node.files.root = files.root;
+            user.folders.root = folders.root;
+            user.folders.size = folders.size;
+
+            /*------------------------------------------------------------------------
+            ------No relationship yet with the shared files in the local storage------
+            ------------------------------------------------------------------------*/
+
+            showFolders();
+            saveUser();
+            alert("Archivo editado con éxito");
+        }
+    }else{
+        alert("No se encontró el archivo");
+    }
+
+    closeEdit(e);
+}
+
+//-----------------------------------------------------------
+//------------------CLOSE EDIT CONTEXT-----------------------
+function closeEdit(e){
+    e.preventDefault();
+    $("#editarea").val('');
+    mnedit.style.visibility = "hidden";
 }
 
 //-----------------------------------------------------------
@@ -308,6 +401,10 @@ function shareFile(e, itmname){
     if(users.getUser(form.inuser) != null){
         let carnet = form.inuser;
         let file = files.getFile(itmname);
+        if(file == null){
+            alert("El archivo no existe");
+            return;
+        }
         let perms = form.inperms;
 
         files.insertPerms(carnet,itmname,perms,file.name,file.value,file.type);
@@ -323,7 +420,19 @@ function shareFile(e, itmname){
         if(localStorage.getItem('shares') != null){
             shares = JSON.retrocycle(JSON.parse(localStorage.getItem('shares')));
         }
-        shares.push({owner: user.carnet, user: carnet, location: $('#path').val(), file: file, perms: perms});
+        let isShared = false;
+        let tmp = [];
+        shares.forEach(share => {
+            if(share.owner == user.carnet && share.user == carnet && share.location == $('#path').val() && share.file.name == file.name){
+                share.perms = perms;
+                isShared = true;
+            }
+            tmp.push(share);
+        });
+        shares = tmp;
+        if(!isShared){
+            shares.push({owner: user.carnet, user: carnet, location: $('#path').val(), file: file, perms: perms});
+        }
         localStorage.setItem('shares', JSON.stringify(JSON.decycle(shares)));
 
         let shareform = document.getElementById('formshare');
@@ -341,7 +450,7 @@ function shareFile(e, itmname){
 function openSharedFolders(){
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     let win = window.open('sharedFolders.html', '_blank');
-    win.focus();
+    //win.focus();
 }
 
 window.addEventListener('click', e => {

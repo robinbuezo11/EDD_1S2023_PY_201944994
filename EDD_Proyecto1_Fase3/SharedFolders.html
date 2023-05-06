@@ -19,9 +19,7 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-12 pt-5 ps-5">
-                <h5 class="text-center">Archivos Compartidos</h5>
-                <hr>
+            <div class="col-12 pt-3 ps-5">
                 <div class="row mt-4 mb-5" id="folders">
                     <!-- MOSTRAR LAS CARPETAS -->
                     <!-- <div class="col-2 folder" onclick="">
@@ -57,35 +55,26 @@
             </ul>
         </div>
     </div>
-    <!-- <div class="share text-center" >
-        <div class="content">
-            <h4 id="txtshare">Compartir</h4>
-                    <hr id="hrshare">
-                    <h6 class="col-3 text-start ps-1"><b>Usuario</b></h6>
-                    <form id="formshare" class="form" onsubmit="">
-                        <input type="text" id="inuser" name="inuser" class="form-control" placeholder="Usuario">
-                        <div id="access" class="mt-3">
-                            <h6 class="col-3 text-start ps-1"><b>Permisos</b></h6>
-                            <select id="inperms" name="inperms" class="form-select">
-                                <option selected disabled>Seleccionar Permiso</option>
-                                <option value="r">Lectura</option>
-                                <option value="r-w">Escritura</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-1"></div>
-                            <div class="form-group mt-4 col-4">
-                                <button id="danger" onclick="closeShare(event)" class="btn btn-light w-100 btn-sm">Cancelar</button>
-                            </div>
-                            <div class="col-2"></div>
-                            <div class="form-group mt-4 col-4">
-                                <button type="submit" class="btn btn-light w-100 btn-sm">Compartir</button>
-                            </div>
-                            <div class="col-1"></div>
-                        </div>
-                    </form>
+    <div class="edit text-center" >
+        <div class="content ps-3 pe-3">
+            <h4 class="pt-3" id="txtedit">Editar</h4>
+            <hr id="hredit">
+            <form id="formedit" class="form" onsubmit="">
+                <textarea class="form-control" id="editarea" name="editarea" rows="18"></textarea>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="form-group mt-4 col-2">
+                        <button id="danger" onclick="closeEdit(event)" class="btn btn-light w-100 btn-sm">Cancelar</button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="form-group mt-4 col-2">
+                        <button type="submit" class="btn btn-light w-100 btn-sm" id="btnedit">Guardar</button>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </form>
         </div>
-    </div> -->
+    </div>
 
     <!-- JQuery & Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

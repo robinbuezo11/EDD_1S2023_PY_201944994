@@ -111,6 +111,12 @@ class SparseMatrix{
             while(temp.down != null && temp.down.file.toLowerCase() < newNode.file.toLowerCase()){
                 temp = temp.down;
             }
+            if(temp.down != null){
+                if(temp.down.file.toLowerCase() == newNode.file.toLowerCase()){
+                    temp.down.perm = newNode.perm;
+                    return;
+                }
+            }
             newNode.down = temp.down;
             if(temp.down != null){
                 temp.down.up = newNode;
@@ -139,6 +145,11 @@ class SparseMatrix{
             while(temp.right != null && temp.right.carnet < newNode.carnet){
                 temp = temp.right;
             }
+            if(temp.right != null){
+                if(temp.right.carnet == newNode.carnet){
+                    return;
+                }
+            }
             newNode.right = temp.right;
             if(temp.right != null){
                 temp.right.left = newNode;
@@ -162,6 +173,24 @@ class SparseMatrix{
                 current = current.down;
             }
             return null;
+        }
+    }
+
+    //-----------------------------------------------------------
+    //--------------------------SET FILE-------------------------
+    setFile(filename, file){
+        if(this.root.down == null){
+            return false;
+        }else{
+            let current = this.root.down;
+            while(current){
+                if(current.perm == filename){
+                    current = file;
+                    return true;
+                }
+                current = current.down;
+            }
+            return false;
         }
     }
 
