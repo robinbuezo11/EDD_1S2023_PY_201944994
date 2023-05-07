@@ -3,7 +3,7 @@
 *Estructuras de Datos, 1er. Semestre 2023.*  
 
 ___
-## **PROYECTO FASE 2**
+## **PROYECTO FASE 3**
 ### **EDD GoDrive**
 ___
 **201944994 - Robin Omar Buezo Díaz**  
@@ -35,12 +35,14 @@ Para poder ir guardando la información necesaria en el sistema se hizo uso de a
 
 Entre las Estructuras utilizados están:
 - Un Árbol AVL. 
+- Una HashTable
 - Una Lista Circular. 
 - Un Árbol N-ario.
 - Una Matriz Dispersa. 
+- Un BlockChain
 
 ##### ***Nodo de Árbol AVL (AvlNode)***
-Este nodo se utilizó para poder formar e iterar el Árbol AVL en el cual se registran a todos los usuarios que están en el sistema.
+Este nodo se utilizó para poder formar e iterar el Árbol AVL en el cual se registran a todos los usuarios en la carga inicial.
 
 Su "*Constructor*" es el siguiente:
 
@@ -108,6 +110,28 @@ class MatrixNode{
 }
 ~~~
 
+##### ***Nodo del BlockChain (Block)***
+Este nodo se utilizo para poder formar e iterar los mensajes que se registran en el sistema en base a los chats de los usuarios.
+
+Su "*Constructor*" es el siguiente:
+
+~~~
+class Block{
+    constructor(index, transmitter, receiver, message, previousHash, hash){
+        this.index = index;
+        this.timestamp = new Date();
+        this.transmitter = transmitter;
+        this.receiver = receiver;
+        this.message = message;
+        this.previousHash = previousHash;
+        this.hash = hash;
+
+        this.next = null;
+        this.prev = null;
+    }
+}
+~~~
+
 ##### ***Árbol AVL (AvlTree)***
 Esta "*Clase*" se utilizó para poder manipular los nodos de Usuarios y así poder crear el Árbol AVL.
 
@@ -129,6 +153,21 @@ class AvlTree{
 
     Insert(user){
         this.root = this.#insertRecursive(user, this.root);
+    }
+}
+~~~
+
+##### ***Tabla Hash (HashTable)***
+Esta "*Clase*" se utilizó para poder manipular a los usuarios en el sistema, esta estructura es poblada por el Árbol N-ário luego de que los usuarios son cargados.
+
+Su "*Constructor*" es el siguiente:
+
+~~~
+class HashTable{
+    constructor(){
+        this.table = new Array(7);
+        this.capacity = 7;
+        this.size = 0;
     }
 }
 ~~~
@@ -170,6 +209,21 @@ Su "*Constructor*" es el siguiente:
 class SparseMatrix{
     constructor(){
         this.root = new MatrixNode(null, null, "DOCUMENTOS", null, null, null);
+    }
+}
+~~~
+
+##### ***Block Chain (BlockChain)***
+Esta "*Clase*" se utilizó para poder manipular los nodos que guardan la información de los mensajes que los usuarios se envían y reciben en los chats.
+
+Su "*Constructor*" es el siguiente:
+
+~~~
+class BlockChain{
+    constructor(){
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
     }
 }
 ~~~
@@ -224,6 +278,18 @@ Este archivo es el que se encarga de manejar la funcionalidad de la ventana dond
 ##### ***filesGraph.js***
 Este archivo es el que se encarga de manejar la funcionalidad de la ventana donde el usuarios puede visualizar el reporte de sus archivos y los permisos de cada uno.
 
+##### ***AdminMessages.js***
+Este archivo es el que se encarga de manejar la funcionalidad de la ventana donde el usuarios administrador puede visualizar los diferentes bloques que corresponden a cada uno de los mensajes en el sistema.
+
+##### ***chat.js***
+Este archivo es el que se encarga de manejar la funcionalidad de la ventana de chats que es en donde cada usuario puede interactuar con el resto de usuarios enviando y recibiendo mensajes.
+
+##### ***messagesGraph.js***
+Este archivo es el que se encarga de manejar la funcionalidad de la ventana donde el usuarios puede visualizar el reporte de los mensajes de forma grafica y general.
+
+##### ***sharedFolders.js***
+Este archivo es el que se encarga de manejar la funcionalidad de la ventana donde el usuarios puede visualizar los diferentes archivos que han sido compartidos con el.
+
 #### **Herramientas**
 Para poder dar solución a los requerimientos anteriores se utilizó el lenguaje de programación *JavaScript* y su documentación por su versatilidad en el uso de clases y fácil programación web.
 
@@ -252,17 +318,21 @@ Esta es la pantalla principal de inicio de sesión.
 Esta es la pantalla del usuario *"Admin"*.
 ![Nomenclatura](./Imgs/Admin.png "Nomenclatura")  
 
-##### ***Usuarios***
-Esta es la pantalla en donde se puede visualizar el reporte de usuarios.
-![Nomenclatura](./Imgs/Users.png "Nomenclatura") 
+##### ***Mensajes***
+Esta es la pantalla en donde se pueden visualizar los bloques de los mensajes.
+![Nomenclatura](./Imgs/Messages.png "Nomenclatura") 
 
-##### ***Bitácora***
-Esta es la pantalla en donde se puede visualizar el reporte de bitacora de cada usuario.
-![Nomenclatura](./Imgs/Binnacle.png "Nomenclatura") 
+##### ***Gráfico de Mensajes***
+Esta es la pantalla en donde se pueden visualizar el gráfico de los mensajes.
+![Nomenclatura](./Imgs/MessagesGraph.png "Nomenclatura") 
 
 ##### ***Dashboard Usuario***
 Esta es la pantalla principal del usuario.
 ![Nomenclatura](./Imgs/DashUser.png "Nomenclatura") 
+
+##### ***Compartidos***
+Esta es la pantalla dónde el usuario puede ver los archivos que han compartido con el.
+![Nomenclatura](./Imgs/Shareds.png "Nomenclatura")
 
 ##### ***Carpetas***
 Esta es la pantalla donde se puede visualizar el reporte de carpetas.
@@ -272,6 +342,10 @@ Esta es la pantalla donde se puede visualizar el reporte de carpetas.
 Esta es el menú al dar click derecho sobre los archivos.
 ![Nomenclatura](./Imgs/ContextMenu.png "Nomenclatura") 
 
+##### ***Editar***
+Esta es la ventana para editar los archivos de texto.
+![Nomenclatura](./Imgs/Edit.png "Nomenclatura") 
+
 ##### ***Compartir Archivos***
 Esta es la ventana para poder compartir los archivos con otros usuarios.
 ![Nomenclatura](./Imgs/ShareFile.png "Nomenclatura") 
@@ -279,6 +353,10 @@ Esta es la ventana para poder compartir los archivos con otros usuarios.
 ##### ***Archivos***
 Esta es la ventana en donde se puede visualizar el reporte de archivos y sus permisos.
 ![Nomenclatura](./Imgs/Files.png "Nomenclatura") 
+
+##### ***Chat***
+Esta es la ventana en donde los usuarios pueden enviar y recibir mensajes de otros usuarios.
+![Nomenclatura](./Imgs/Chat.png "Nomenclatura") 
 
 ##### ***Archivo JSON de los Estudiantes***
 Esta es la estructura que debe tener el archivo JSON para la carga de los usuarios.
