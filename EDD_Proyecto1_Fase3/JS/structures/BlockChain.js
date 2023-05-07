@@ -70,11 +70,24 @@ class BlockChain{
             while(current != null){
                 if(String(current.receiver) === String(transmitter)){
                     if(String(current.transmitter) === String(receiver)){
-                        msgs += `<li class="list-group-item">${this.decryptMessage(current.message)}</li>`;
+                        msgs += `<li class="list-group-item ps-1 p-0 m-0 bg-light border-light">
+                            <div class="row p-0 m-0">
+                                <div class="col-5 bg-secondary p-0 m-0 rounded-2 p-2 text-light">
+                                    ${this.decryptMessage(current.message)}
+                                </div>
+                                <div class="col-7 p-0 m-0"></div>
+                            </div>
+                        </li>`;
                     }
                 }else if(String(current.transmitter) === String(transmitter)){
                     if(String(current.receiver) === String(receiver)){
-                        msgs += `<li class="list-group-item bg-primary text-light" style="text-align: right">${this.decryptMessage(current.message)}</li>`;
+                        msgs += `<li class="list-group-item text-light pe-3 p-0 m-0 bg-light border-light" style="text-align: right">
+                            <div class="row p-0 m-0">
+                                <div class="col-7 p-0 m-0"></div>
+                                <div class="col-5 bg-primary p-0 m-0 rounded-2 p-2">
+                                    ${this.decryptMessage(current.message)}
+                                </div>
+                        </li>`;
                     }
                 }
                 current = current.next;
@@ -87,7 +100,7 @@ class BlockChain{
                 `;
             }
         }
-        return `No hay mensajes`;
+        return ``;
     }
 
     blockReport(index = 0){
@@ -141,12 +154,30 @@ class BlockChain{
 
     getFormatedDate(block){
         let timestamp = new Date(block.timestamp);
-        let day = timestamp.getDate();
-        let month = timestamp.getMonth() + 1;
+        let day = timestamp.getDate() < 10 ? `0${timestamp.getDate()}` : timestamp.getDate(); 
+        let month = timestamp.getMonth() + 1 < 10 ? `0${timestamp.getMonth() + 1}` : timestamp.getMonth() + 1;
         let year = timestamp.getFullYear();
-        let hour = timestamp.getHours();
-        let min = timestamp.getMinutes();
-        let sec = timestamp.getSeconds();
+        let hour = timestamp.getHours() < 10 ? `0${timestamp.getHours()}` : timestamp.getHours();
+        let min = timestamp.getMinutes() < 10 ? `0${timestamp.getMinutes()}` : timestamp.getMinutes();
+        let sec = timestamp.getSeconds() < 10 ? `0${timestamp.getSeconds()}` : timestamp.getSeconds();
         return `${day}-${month}-${year} :: ${hour}:${min}:${sec}`;
+    }
+
+    getGraph(){
+        if(this.head){
+            let current = this.head;
+            let graph = `node [shape = record, style=filled, fillcolor="darkslategray", fontcolor="white"];
+                rankdir=TB;
+                `;
+            while(current != null){
+                graph += `node${current.index} [label = "TimeStamp: ${this.getFormatedDate(current)}\\nEmisor: ${current.transmitter}\\nReceptor: ${current.receiver}\\nPreviousHash: ${current.previousHash}"];\n`;
+                if(current.next != null){
+                    graph += `node${current.index} -> node${current.next.index};`;
+                }
+                current = current.next;
+            }
+            return graph;
+        }
+        return "";
     }
 }

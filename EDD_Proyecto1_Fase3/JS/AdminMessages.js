@@ -21,17 +21,22 @@ function getBlock(index){
         
         if(index < 0){
             if(currentBlock - 1 < 0){
-                alert("No existen elementos anteriores");
+                let html = messages.blockReport(messages.size - 1);
+                if(html){
+                    $('#show-block').html(html);
+                }
             }else{
                 let html = messages.blockReport(currentBlock - 1);
                 if(html){
                     $('#show-block').html(html);
                 }
             }
-
         }else if(index > 0){
             if(currentBlock + 1 >= messages.size ){
-                alert("No existen elementos siguientes");
+                let html = messages.blockReport(0);
+                if(html){
+                    $('#show-block').html(html);
+                }
             }else{
                 let html = messages.blockReport(currentBlock + 1);
                 if(html){
@@ -40,6 +45,10 @@ function getBlock(index){
             }
         }
     }
+}
+
+function openMessagesGraph(){
+    window.open('messagesGraph.html', '_blank');
 }
 
 window.addEventListener('keyup', function(event){

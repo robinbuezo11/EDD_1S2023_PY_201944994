@@ -166,7 +166,7 @@ h5,h3{
     font-size: 130%;
 }
 
-#messages, #chatbtn, #messagesrpt{
+#messages, #chatbtn, #messagesrpt, #sendMessage{
     font-size: 130%;
 }
 
@@ -208,7 +208,6 @@ hr{
 	overflow-y: scroll;
 	height: 450px;
 	border-radius: 10px;
-	background-color: #ffffff;
 }
 #userslist{
 	overflow-y: scroll;

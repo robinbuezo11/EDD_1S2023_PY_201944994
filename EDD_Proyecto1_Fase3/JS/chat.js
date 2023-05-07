@@ -94,6 +94,7 @@ async function sendMessage(){
         $('#msgs').val("");
         localStorage.setItem('messages', JSON.stringify(JSON.decycle(messages)));
         showMessages();
+        $('#chatcontainer').scrollTop($('#chatcontainer')[0].scrollHeight);
     }else{
         alert("Seleccione un amigo para chatear");
         $('#msgs').blur();
