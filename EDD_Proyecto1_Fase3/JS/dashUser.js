@@ -97,7 +97,7 @@ function backRoot(){
 //-----------------------------------------------------------
 //---------------------SHOW GRAPH FOLDERS--------------------
 function openGraphFolders(){
-    let windows = window.open("FoldersGraph.html", "_blank");
+    window.open("FoldersGraph.html", "_blank");
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
     //windows.focus();
 }
@@ -111,7 +111,7 @@ function openGraphFiles(){
     }
     localStorage.setItem('path', JSON.stringify($('#path').val()));
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
-    let windows = window.open("FilesGraph.html", "_blank");
+    window.open("FilesGraph.html", "_blank");
     //windows.focus();
 }
 
@@ -247,7 +247,7 @@ function contextMenu(e, itmname, itmvalue){
 
     menu.style.left = `${x}px`;
     menu.style.top = `${y}px`;
-    menu.style.visibility = "visible";
+    menu.style.display = 'block';
 
     $("#adownload").attr('href',itmvalue);
     $("#adownload").attr('download',itmname);
@@ -279,11 +279,15 @@ function editText(e, itmname){
         alert("No se encontró el archivo");
         return;
     }
-    let x = 0, y = 0,
-    winwidth = window.innerWidth,
-    winheight = window.innerHeight,
-    editwidth = mnedit.clientWidth,
-    editheight = mnedit.clientHeight;
+
+    let x = 0, y = 0;
+    mnedit.style.display = 'block';
+    mnedit.style.visibility = 'hidden';
+    let winwidth = window.innerWidth;
+    let winheight = window.innerHeight;
+    let editwidth = mnedit.offsetWidth;
+    let editheight = mnedit.offsetHeight;
+
 
     x = (winwidth/2)-(editwidth/2);
     y = (winheight/2)-(editheight/2);
@@ -294,7 +298,7 @@ function editText(e, itmname){
 
     mnedit.style.left = `${x}px`;
     mnedit.style.top = `${y}px`;
-    mnedit.style.visibility = "visible";
+    mnedit.style.visibility = 'visible';
 }
 
 //-----------------------------------------------------------
@@ -344,7 +348,7 @@ function editFile(e, itmname){
 function closeEdit(e){
     e.preventDefault();
     $("#editarea").val('');
-    mnedit.style.visibility = "hidden";
+    mnedit.style.display = 'none';
 }
 
 //-----------------------------------------------------------
@@ -366,14 +370,14 @@ function menuShare(e, itmname){
 
     mnshare.style.left = `${x}px`;
     mnshare.style.top = `${y}px`;
-    mnshare.style.visibility = "visible";
+    mnshare.style.display = 'block';
 }
 
 //-----------------------------------------------------------
 //-----------CLOSE SHARE CONTEXT MENU------------------------
 function closeShare(e){
     e.preventDefault();
-    mnshare.style.visibility = "hidden";
+    mnshare.style.display = 'none';
 }
 
 //-----------------------------------------------------------
@@ -437,7 +441,7 @@ function shareFile(e, itmname){
 
         let shareform = document.getElementById('formshare');
         shareform.reset();
-        mnshare.style.visibility = "hidden";
+        mnshare.style.display = 'none';
         alert("El archivo se compartió correctamente");
     }else{
         alert("El usuario no existe");
@@ -449,12 +453,19 @@ function shareFile(e, itmname){
 //----------------------OPEN SHAREDS-------------------------
 function openSharedFolders(){
     localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
-    let win = window.open('sharedFolders.html', '_blank');
+    window.open('SharedFolders.html', '_blank');
     //win.focus();
 }
 
+//-----------------------------------------------------------
+//----------------------OPEN CHAT----------------------------
+function openChat(){
+    localStorage.setItem('user', JSON.stringify(JSON.decycle(user)));
+    window.open('Chat.html', '_blank');
+}
+
 window.addEventListener('click', e => {
-    menu.style.visibility = "hidden";
+    menu.style.display = 'none';
 });
 
 window.addEventListener("beforeunload", function (e) {

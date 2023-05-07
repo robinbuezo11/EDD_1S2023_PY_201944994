@@ -1,8 +1,8 @@
 class Block{
-    constructor(index, transmittor, receiver, message, previousHash, hash){
+    constructor(index, transmitter, receiver, message, previousHash, hash){
         this.index = index;
         this.timestamp = new Date();
-        this.transmittor = transmittor;
+        this.transmitter = transmitter;
         this.receiver = receiver;
         this.message = message;
         this.previousHash = previousHash;

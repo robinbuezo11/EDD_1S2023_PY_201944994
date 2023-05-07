@@ -15,7 +15,8 @@ span{
 }
 .wrappershare{
 	position: absolute;
-	visibility: hidden;
+	/* visibility: hidden; */
+	display: none;
 	width: 150px;
 	height: 120px;
 	background-color: #fff;
@@ -27,7 +28,8 @@ span{
 }
 .wrapper{
 	position: absolute;
-	visibility: hidden;
+	/* visibility: hidden; */
+	display: none;
 	width: 150px;
 	height: 160px;
 	background-color: #fff;
@@ -62,7 +64,8 @@ h6,h4{
 }
 .share{
 	position: absolute;
-	visibility: hidden;
+	/* visibility: hidden; */
+	display: none;
 	width: 400px;
 	height: 350px;
 	background-color: #fff;
@@ -75,7 +78,8 @@ h6,h4{
 }
 .edit{
 	position: absolute;
-	visibility: hidden;
+	/* visibility: hidden; */
+	display: none;
 	width: 1200px;
 	height: 600px;
 	background-color: #fff;
@@ -162,7 +166,7 @@ h5{
     font-size: 130%;
 }
 
-#messages{
+#messages, #chatbtn{
     font-size: 130%;
 }
 
@@ -198,4 +202,29 @@ hr{
 	color: #ffffff;
 	font-style: italic;
 	text-decoration: underline;
+}
+
+#chatcontainer{
+	overflow-y: scroll;
+	height: 450px;
+	border-radius: 10px;
+	background-color: #ffffff;
+}
+#userslist{
+	overflow-y: scroll;
+	height:465px;
+	border-radius: 10px;
+}
+#searchuser{
+	border-radius: 5px;
+}
+
+#userslist li:hover{
+	background-color: cornsilk;
+	transform: .3s;
+	cursor: pointer;
+}
+#userslist li.active{
+	background-color: rgb(255, 115, 0);
+	border-color: rgb(255, 115, 0);
 }

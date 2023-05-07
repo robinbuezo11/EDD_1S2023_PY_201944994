@@ -111,6 +111,20 @@ class HashTable{
     }
 
     //-----------------------------------------------------------
+    //-----------------------GET USERS CHAT HTML----------------------
+    getUsersChatHtml(carnet){
+        let rows = "";
+        if(this.size != 0){
+            this.table.forEach(user => {
+                if(user && user.carnet != carnet){
+                    rows +=`<li class="list-group-item" id="${user.carnet}" onclick="selectUser(${user.carnet})">${user.carnet} - ${user.firstname} ${user.lastname}</li>`;
+                }
+            });
+        }
+        return `<ul id=userslst class="list-group">${rows}</ul>`;
+    }
+
+    //-----------------------------------------------------------
     //-------------------GET USER BY CARNET----------------------
     getUser(carnet){
         let index = this.#calculateIndex(carnet);

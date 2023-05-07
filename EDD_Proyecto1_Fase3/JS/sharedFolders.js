@@ -66,7 +66,7 @@ function contextMenu(e, itmname, itmvalue){
 
     menu.style.left = `${x}px`;
     menu.style.top = `${y}px`;
-    menu.style.visibility = "visible";
+    menu.style.display = "block";
 
     $("#adownload").attr('href',itmvalue);
     $("#adownload").attr('download',itmname);
@@ -106,11 +106,13 @@ function editText(e, itmname){
             alert("No se encontró el archivo");
             return;
         }
-        let x = 0, y = 0,
-        winwidth = window.innerWidth,
-        winheight = window.innerHeight,
-        editwidth = mnedit.clientWidth,
-        editheight = mnedit.clientHeight;
+        let x = 0, y = 0;
+        mnedit.style.display = "block";
+        mnedit.style.visibility = "hidden";
+        let winwidth = window.innerWidth;
+        let winheight = window.innerHeight;
+        let editwidth = mnedit.clientWidth;
+        let editheight = mnedit.clientHeight;
 
         x = (winwidth/2)-(editwidth/2);
         y = (winheight/2)-(editheight/2);
@@ -194,11 +196,11 @@ function closeEdit(e){
     $("#editarea").val('');
     $("#editarea").attr('readonly',false);
     $("#btnedit").attr('disabled',false);
-    mnedit.style.visibility = "hidden";
+    mnedit.style.display = "none";
 }
 
 window.addEventListener('click', e => {
-    menu.style.visibility = "hidden";
+    menu.style.display = "none";
 });
 
 $(document).ready(welcomeUser)

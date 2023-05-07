@@ -5,11 +5,12 @@ class BlockChain{
         this.size = 0;
     }
 
-    async insert(transmittor, receiver, message){
-        let newBlock = new Block(this.size, transmittor, receiver, message, "", "");
+    async insert(transmitter, receiver, message){
+        let newBlock = new Block(this.size, transmitter, receiver, message, "", "");
         if(this.head == null){
             newBlock.previousHash = "00000"
             newBlock.hash = await this.getSha256(newBlock);
+            newBlock.message = this.encryptMessage(newBlock.message);
 
             this.head = newBlock;
             this.tail = newBlock;
@@ -17,6 +18,7 @@ class BlockChain{
         }else{
             newBlock.previousHash = this.tail.hash;
             newBlock.hash = await this.getSha256(newBlock);
+            newBlock.message = this.encryptMessage(newBlock.message);
 
             this.tail.next = newBlock;
             newBlock.prev = this.tail;
@@ -33,18 +35,46 @@ class BlockChain{
         return hash;
     }
 
-    getMessages(transmittor, receiver){
+    //-----------------------------------------------------------
+    //--------------------ENCRYPT MESSAGE------------------------
+    encryptMessage(message) {
+        const key = '7061737323313233'
+        const iv = forge.random.getBytesSync(16);
+        const cipher = forge.cipher.createCipher('AES-CBC', key);
+        cipher.start({ iv: iv });
+        cipher.update(forge.util.createBuffer(message));
+        cipher.finish();
+        const encrypted = cipher.output.getBytes();
+        const ivAndCiphertext = iv + encrypted;
+        return ivAndCiphertext;
+    }
+
+    //-----------------------------------------------------------
+    //--------------------DECRYPT MESSAGE------------------------
+    decryptMessage(ciphertext) {
+        const key = '7061737323313233'
+        const iv = ciphertext.substring(0, 16);
+        const encrypted = ciphertext.substring(16);
+        const decipher = forge.cipher.createDecipher('AES-CBC', key);
+        decipher.start({ iv: iv });
+        decipher.update(forge.util.createBuffer(encrypted));
+        decipher.finish();
+        const decrypted = decipher.output.getBytes();
+        return decrypted;
+    }
+
+    getMessages(transmitter, receiver){
         if(this.head != null){
             let msgs = "";
             let current = this.head;
             while(current != null){
-                if(String(current.receiver) === String(transmittor)){
-                    if(String(current.transmittor) === String(receiver)){
-                        msgs += `<li class="list-group-item">${current.message}</li>`;
+                if(String(current.receiver) === String(transmitter)){
+                    if(String(current.transmitter) === String(receiver)){
+                        msgs += `<li class="list-group-item">${this.decryptMessage(current.message)}</li>`;
                     }
-                }else if(String(current.transmittor) === String(transmittor)){
+                }else if(String(current.transmitter) === String(transmitter)){
                     if(String(current.receiver) === String(receiver)){
-                        msgs += `<li class="list-group-item bg-primary text-light" style="text-align: right">${current.message}</li>`;
+                        msgs += `<li class="list-group-item bg-primary text-light" style="text-align: right">${this.decryptMessage(current.message)}</li>`;
                     }
                 }
                 current = current.next;
@@ -77,8 +107,8 @@ class BlockChain{
                                     <td>${current.getFormatDate()}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Transmittor</th>
-                                    <td>${current.transmittor}</td>
+                                    <th scope="row">transmitter</th>
+                                    <td>${current.transmitter}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Receiver</th>
