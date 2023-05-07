@@ -96,35 +96,37 @@ class BlockChain{
             while(current != null){
                 if(current.index === index){
                     return `
-                        <table class="table table-bordered" id="block-table" name="${current.index}">
-                            <tbody>
-                                <tr>
+                        <table class="table table-bordered table-dark" id="block-table" name="${current.index}">
+                            <thead>
+                                <tr class="table-secondary">
                                     <th scope="row" class="col-3">Index</th>
-                                    <td class="col-9">${current.index}</td>
+                                    <td class="col-9 text-center">${current.index}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Timestamp</th>
-                                    <td>${current.getFormatDate()}</td>
+                            </thead>
+                            <tbody>
+                                <tr class="table-light">
+                                    <th scope="row">TimeStamp</th>
+                                    <td class="text-center">${this.getFormatedDate(current)}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">transmitter</th>
-                                    <td>${current.transmitter}</td>
+                                <tr class="table-light">
+                                    <th scope="row">Emisor</th>
+                                    <td class="text-center">${current.transmitter}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Receiver</th>
-                                    <td>${current.receiver}</td>
+                                <tr class="table-light">
+                                    <th scope="row">Receptor</th>
+                                    <td class="text-center">${current.receiver}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Message</th>
-                                    <td>${current.message}</td>
+                                <tr class="table-light">
+                                    <th scope="row">Mensaje</th>
+                                    <td class="text-center">${window.btoa(current.message)}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Previous Hash</th>
-                                    <td>${current.previousHash}</td>
+                                <tr class="table-light">
+                                    <th scope="row">PreviousHash</th>
+                                    <td class="text-center">${current.previousHash}</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-light">
                                     <th scope="row">Hash</th>
-                                    <td>${current.hash}</td>
+                                    <td class="text-center">${current.hash}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -135,5 +137,16 @@ class BlockChain{
             }
         }
         return "";
+    }
+
+    getFormatedDate(block){
+        let timestamp = new Date(block.timestamp);
+        let day = timestamp.getDate();
+        let month = timestamp.getMonth() + 1;
+        let year = timestamp.getFullYear();
+        let hour = timestamp.getHours();
+        let min = timestamp.getMinutes();
+        let sec = timestamp.getSeconds();
+        return `${day}-${month}-${year} :: ${hour}:${min}:${sec}`;
     }
 }

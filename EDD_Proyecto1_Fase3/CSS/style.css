@@ -138,7 +138,7 @@ h2,h1{
 	color: rgb(255, 115, 0);
 }
 
-h5{
+h5,h3{
 	color: rgb(255, 115, 0);
 }
 
@@ -166,7 +166,7 @@ h5{
     font-size: 130%;
 }
 
-#messages, #chatbtn{
+#messages, #chatbtn, #messagesrpt{
     font-size: 130%;
 }
 

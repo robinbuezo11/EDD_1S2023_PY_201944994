@@ -11,14 +11,4 @@ class Block{
         this.next = null;
         this.prev = null;
     }
-
-    getFormatedDate(){
-        let day = this.timestamp.getDate();
-        let month = this.timestamp.getMonth() + 1;
-        let year = this.timestamp.getFullYear();
-        let hour = this.timestamp.getHours();
-        let min = this.timestamp.getMinutes();
-        let sec = this.timestamp.getSeconds();
-        return `${day}-${month}-${year} :: ${hour}:${min}:${sec}`;
-    }
 }

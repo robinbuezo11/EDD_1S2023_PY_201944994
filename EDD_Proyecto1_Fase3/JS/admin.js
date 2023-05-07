@@ -158,6 +158,12 @@ function loadLocalShares(){
 } */
 
 //-----------------------------------------------------------
+//----------------------SHOW MESSAGES------------------------
+function openMessagesRpt(){
+    window.open("AdminMessages.html", "_blank");
+}
+
+//-----------------------------------------------------------
 //----------------------CLEAR USERS--------------------------
 function clearUsers(){
     if(confirm("¿Está seguro de eliminar todos los usuarios?")){
@@ -180,6 +186,11 @@ function clearUsers(){
             localStorage.removeItem('shares');
         }
         $('#sharesTable tbody').html('');
+
+        //CLEAR MESSAGES
+        if (localStorage.getItem('messages') != null) {
+            localStorage.removeItem('messages');
+        }
 
 /*         let routesform = document.getElementById('routesform');
         routesform.reset() */
