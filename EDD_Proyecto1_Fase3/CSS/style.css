@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+a:link, a:visited, a:active {
+    text-decoration:none;
+	color: black;
+	display: flex;
+}
+a span{
+	padding-top: 5px;
+}
+span{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+.wrappershare{
+	position: absolute;
+	/* visibility: hidden; */
+	display: none;
+	width: 150px;
+	height: 120px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+.wrappershare .menu{
+	padding: 5px 6px;
+}
+.wrapper{
+	position: absolute;
+	/* visibility: hidden; */
+	display: none;
+	width: 150px;
+	height: 160px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+.wrapper .menu{
+	padding: 5px 6px;
+}
+.content .item {
+	list-style: none;
+	font-size: 20px;
+	height: 35px;
+	display: flex;
+	width: 100%;
+	padding: 0 5px 0 10px;
+	align-items: center;
+	border-radius: 5px;
+	margin-bottom: 2px;
+}
+.content .item:hover{
+	cursor: pointer;
+	background: #f2f2f2;
+}
+.content .item span{
+	font-size: 12px;
+	margin-left: 8px;
+}
+
+h6,h4{
+	font-family: 'Poppins', sans-serif;
+}
+.share{
+	position: absolute;
+	/* visibility: hidden; */
+	display: none;
+	width: 400px;
+	height: 350px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+
+.share .content{
+	padding: 10px 10px;
+}
+.edit{
+	position: absolute;
+	/* visibility: hidden; */
+	display: none;
+	width: 1200px;
+	height: 600px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+
+#eddtitle {
+    margin-top: 30%;
+
+  	font: 5000 4em/1 "Oswald", sans-serif;
+  	letter-spacing: 0;
+  	/*padding: .25em 0 .325em;
+	  display: block;
+	  margin: 0 auto;
+  	*/text-shadow: 0 0 80px rgba(255,255,255,.5);
+
+    /* Clip Background Image */
+
+	  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+	  background-size: 550vw;
+	  -webkit-background-clip: text;
+	  background-clip: text;
+
+    /* Animate Background Image */
+
+	  -webkit-text-fill-color: transparent;
+	  -webkit-animation: aitf 80s linear infinite;
+
+    /* Activate hardware acceleration for smoother animations */
+
+	  -webkit-transform: translate3d(0,0,0);
+	  -webkit-backface-visibility: hidden;
+
+}
+
+@-webkit-keyframes aitf {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
+}
+
+#logincol{
+    margin-top: 5%;
+}
+
+label{
+    color: rgb(255, 125, 0);
+}
+
+label{
+    font-size: large;
+}
+
+h2,h1{
+    font-size: 300%;
+	color: rgb(255, 115, 0);
+}
+
+h5,h3{
+	color: rgb(255, 115, 0);
+}
+
+.btn-light{
+    background-color: chocolate;
+    color: white;
+    font-size: 150%;
+}
+
+#user, #pass{
+    color: black;
+    font-size: 125%;
+    font-weight: bold;
+}
+
+#danger{
+	background-color: rgb(191, 40, 40);
+    color: white;
+    font-size: 100%;
+}
+
+#logout{
+	background-color: rgb(191, 40, 40);
+    color: white;
+    font-size: 130%;
+}
+
+#messages, #chatbtn, #messagesrpt, #sendMessage{
+    font-size: 130%;
+}
+
+hr{
+	border: 2px solid rgb(255, 120, 0);
+}
+
+#hrshare{
+	border: 2px solid rgb(0, 0, 0);
+}
+
+.folder:hover{
+	background-color: cornsilk;
+	color: rgb(0, 0, 0);
+	transform: .3s;
+	cursor: pointer;
+}
+
+#binnacle{
+	background-color: rgb(215, 215, 215);
+	color: rgb(0, 0, 0);
+}
+
+.btn-sm{
+	font-size: 100%;
+}
+
+#inputFile{
+	margin-top: 1px;
+}
+
+#resource{
+	color: #ffffff;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+#chatcontainer{
+	overflow-y: scroll;
+	height: 450px;
+	border-radius: 10px;
+}
+#userslist{
+	overflow-y: scroll;
+	height:465px;
+	border-radius: 10px;
+}
+#searchuser{
+	border-radius: 5px;
+}
+
+#userslist li:hover{
+	background-color: cornsilk;
+	transform: .3s;
+	cursor: pointer;
+}
+#userslist li.active{
+	background-color: rgb(255, 115, 0);
+	border-color: rgb(255, 115, 0);
+}
