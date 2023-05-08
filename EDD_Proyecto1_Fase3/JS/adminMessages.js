@@ -48,7 +48,7 @@ function getBlock(index){
 }
 
 function openMessagesGraph(){
-    window.open('messagesGraph.html', '_blank');
+    window.open('MessagesGraph.html', '_blank');
 }
 
 window.addEventListener('keyup', function(event){
