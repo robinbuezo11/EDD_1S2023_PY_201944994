@@ -25,7 +25,7 @@ ___
 Para la creación se este software se utilizó el paradigma de Programación Orientada a Objetos, ya que esto da una mejor facilidad a la hora de manejar el archivo que se está manipulando a lo largo de toda la ejecución, como también el poder encapsular los objetos y luego poder utilizar los mismos objetos en los diferentes menús que se utilizan a lo largo del programa.
 
 #### **Diagrama de Clases**  
-![Nomenclatura](./imgs/Classes.png "Nomenclatura") 
+![Nomenclatura](./Imgs/Classes.png "Nomenclatura") 
 
 #### **Nomenclatura**  
 ![Nomenclatura](./Imgs/Nomenclatura.png "Nomenclatura")  
